@@ -29,7 +29,7 @@ enable system monitoring of disk, network, and other IO activity.
 
 %description -l pl
 Pakiet ten udostêpnia polecenia sar i iostat dla systemu Linux podobne
-w dzia³aniu do tradycyjnych narzêdzie systemu Unix. Polecenia te
+w dzia³aniu do tradycyjnych narzêdzi systemu Unix. Polecenia te
 umo¿liwiaj± monitorowanie obci±¿enia zasobów dyskowych, interfejsów
 sieciowych i innych operacji wej¶cia/wyj¶cia.
 
