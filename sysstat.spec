@@ -4,12 +4,12 @@ Summary(ru):	Содержит программы системного мониторинга sar и iostat
 Summary(uk):	М╕стить команди системного мон╕торингу sar та iostat
 Summary(zh_CN):	sar, iostat ╣хо╣мЁ╪Юйс╧╓╬ъ
 Name:		sysstat
-Version:	4.1.3
+Version:	4.1.5
 Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
-# Source0-md5:	ce24f45bc5bc8af94ed3c28636ebf4a3
+# Source0-md5:	b5d2a8eff21a991b3fe6192f4d941924
 Source1:	%{name}.crond
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
