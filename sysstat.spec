@@ -5,8 +5,6 @@ Version:	4.0.3
 Release:	1
 License:	GPL
 Group:		Applications/System
-Group(de):	Applikationen/System
-Group(pl):	Aplikacje/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
 Source1:	%{name}.crond
 Source2:	%{name}.init
