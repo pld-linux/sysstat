@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# sysstat       Sysstat system monitoring utility
+# sysstat	Sysstat system monitoring utility
 #
 # chkconfig:	2345 35 55
 #
@@ -26,25 +26,29 @@ case "$1" in
 	fi
 	;;
   stop)
-        # Stop daemons.
-        if [ -f /var/lock/subsys/sysstat ]; then
-                msg_stopping "system activity data collector"
+	if [ -f /var/lock/subsys/sysstat ]; then
+		# Stop daemons.
+		msg_stopping "system activity data collector"
 		echo
-                rm -f /var/lock/subsys/sysstat >/dev/null 2>&1
-        else
-                msg_not_running "system activity data collector"
-                exit 1
-        fi
+		rm -f /var/lock/subsys/sysstat >/dev/null 2>&1
+	else
+		msg_not_running "system activity data collector"
+		exit 1
+	fi
 	;;
   status)
 	status sysstat
 	;;
-  restart)
+  restart|reload)
 	$0 stop
 	$0 start
+	exit $?
+  force-reload)
+	$0 stop && $0 start
+	exit $?
 	;;
   *)
-	msg_usage "$0 {start|stop|status|restart}"
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
 	exit 1
 esac
 
