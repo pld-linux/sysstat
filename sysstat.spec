@@ -1,5 +1,7 @@
-Summary:	SAR, MPSTAT and IOSTAT for Linux
-Summary(pl):	SAR, MPSTAT and IOSTAT dla Linuksa
+Summary:	The sar and iostat system monitoring commands
+Summary(pl):	Polecenia sar i iostat dla systemu Linux
+Summary(ru):	Содержит программы системного мониторинга sar и iostat
+Summary(uk):	М╕стить команди системного мон╕торингу sar та iostat
 Name:		sysstat
 Version:	4.0.4
 Release:	1
@@ -18,10 +20,25 @@ BuildRequires:	sh-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-SAR, MPSTAT and IOSTAT for Linux.
+This package provides the sar and iostat commands for the Linux
+operating system, similar to their traditional UNIX counterparts. They
+enable system monitoring of disk, network, and other IO activity.
 
 %description -l pl
-SAR, MPSTAT and IOSTAT dla Linuksa.
+Pakiet ten udostЙpnia polecenia sar i iostat dla systemu Linux podobne
+w dziaЁaniu do tradycyjnych narzЙdzie systemu Unix. Polecenia te
+umo©liwiaj╠ monitorowanie obci╠©enia zasobСw dyskowych, interfejsСw
+sieciowych i innych operacji wej╤cia/wyj╤cia.
+
+%description -l ru
+Этот пакет содержит программы sar и iostat для Linux, похожие на
+традиционные одноименные программы UNIX. Они позволяют осуществлять
+мониторинг дисковой, сетевой и прочей активности системы.
+
+%description -l uk
+Цей пакет м╕стить програми sar та iostat для Linux, схож╕ на
+традиц╕йн╕ в╕дпов╕дн╕ програми UNIX. Вони дозволяють зд╕йснювати
+мон╕торинг дисково╖, мережево╖ та ╕ншо╖ активност╕ системи.
 
 %prep
 %setup -q
