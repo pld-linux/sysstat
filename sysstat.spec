@@ -66,4 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*/*
 
 %post
-/sbin/chkconfig --add sysstat
+%chkconfig_add
+
+%preun
+%chkconfig_del
