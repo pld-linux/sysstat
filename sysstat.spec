@@ -5,7 +5,7 @@ Summary(uk):	М╕стить команди системного мон╕торингу sar та iostat
 Summary(zh_CN):	sar, iostat ╣хо╣мЁ╪Юйс╧╓╬ъ
 Name:		sysstat
 Version:	5.0.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
@@ -17,7 +17,6 @@ Patch1:		%{name}-verbose.patch
 Patch2:		%{name}-norwegian.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 BuildRequires:	gettext-devel
-BuildRequires:	sh-utils
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	crondaemon
@@ -54,7 +53,7 @@ sieciowych i innych operacji wej╤cia/wyj╤cia.
 %patch1 -p1
 %patch2 -p1
 
-mv -f nls/nb_NO nls/no
+mv -f nls/nb_NO nls/nb
 mv -f nls/nn_NO nls/nn
 
 %build
