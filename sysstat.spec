@@ -2,25 +2,26 @@ Summary:	The sar and iostat system monitoring commands
 Summary(pl):	Polecenia sar i iostat dla systemu Linux
 Summary(ru):	óÏÄÅÒÖÉÔ ÐÒÏÇÒÁÍÍÙ ÓÉÓÔÅÍÎÏÇÏ ÍÏÎÉÔÏÒÉÎÇÁ sar É iostat
 Summary(uk):	í¦ÓÔÉÔØ ËÏÍÁÎÄÉ ÓÉÓÔÅÍÎÏÇÏ ÍÏÎ¦ÔÏÒÉÎÇÕ sar ÔÁ iostat
-Summary(zh_CN):	sar, iostat µÈÏµÍ³¼àÊÓ¹¤¾ß
+Summary(zh_CN):	sar, iostat µÈÏµÍ³¼àÊÓ¹¤¾ß.
 Name:		sysstat
-Version:	4.1.6
-Release:	1
+Version:	4.0.7
+Release:	2
 License:	GPL
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
-# Source0-md5:	8ffdb7abc6049f43c4f7b6a4fe06fe27
+# Source0-md5:	4756d98b7fd8a0999129e88643ea5869
 Source1:	%{name}.crond
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
 Patch1:		%{name}-verbose.patch
-Patch2:		%{name}-norwegian.patch
+Patch2:		%{name}-po.patch
+Patch3:		%{name}-nls.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
+Requires:	crondaemon
+Prereq:		rc-scripts
+Prereq:		/sbin/chkconfig
 BuildRequires:	gettext-devel
 BuildRequires:	sh-utils
-PreReq:		rc-scripts
-Requires(post,preun):	/sbin/chkconfig
-Requires:	crondaemon
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -30,7 +31,7 @@ enable system monitoring of disk, network, and other IO activity.
 
 %description -l pl
 Pakiet ten udostêpnia polecenia sar i iostat dla systemu Linux podobne
-w dzia³aniu do tradycyjnych narzêdzi systemu Unix. Polecenia te
+w dzia³aniu do tradycyjnych narzêdzie systemu Unix. Polecenia te
 umo¿liwiaj± monitorowanie obci±¿enia zasobów dyskowych, interfejsów
 sieciowych i innych operacji wej¶cia/wyj¶cia.
 
@@ -53,6 +54,7 @@ sieciowych i innych operacji wej¶cia/wyj¶cia.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 mv -f nls/nb_NO nls/no
 mv -f nls/nn_NO nls/nn
@@ -87,20 +89,10 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ "$1" = "1" ]; then
-	/sbin/chkconfig --add sysstat
-	echo "Run \"/etc/rc.d/init.d/sysstat start\" to start sysstat." >&2
-else
-	if [ -f /var/lock/subsys/sysstat ]; then
-		/etc/rc.d/init.d/sysstat restart >&2
-	fi
-fi
+/sbin/chkconfig --add sysstat
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/sysstat ]; then
-		/etc/rc.d/init.d/sysstat stop >&2
-	fi
 	/sbin/chkconfig --del sysstat
 fi
 
