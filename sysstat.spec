@@ -1,8 +1,8 @@
 Summary:	SAR, MPSTAT and IOSTAT for Linux
-Summary(pl):	SAR, MPSTAT and IOSTAT dla Linuxa
+Summary(pl):	SAR, MPSTAT and IOSTAT dla Linuksa
 Name:		sysstat
 Version:	4.0.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/System
 Group(de):	Applikationen/System
@@ -13,7 +13,8 @@ Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 Requires:       crondaemon
-Requires:	rc-scripts
+Prereq:		rc-scripts
+Prereq:		/sbin/chkconfig
 BuildRequires:	gettext-devel
 BuildRequires:	sh-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -22,7 +23,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 SAR, MPSTAT and IOSTAT for Linux.
 
 %description -l pl
-SAR, MPSTAT and IOSTAT dla Linuxa.
+SAR, MPSTAT and IOSTAT dla Linuksa.
 
 %prep
 %setup -q
@@ -55,6 +56,14 @@ gzip -9nf CHANGES CREDITS README *.sample TODO
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+/sbin/chkconfig --add sysstat
+
+%preun
+if [ "$1" = "0" ]; then
+	/sbin/chkconfig --del sysstat
+fi
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc *.gz
@@ -64,6 +73,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,root) /etc/cron.d/sysstat
 %attr(754,root,root) /etc/rc.d/init.d/sysstat
 %{_mandir}/man*/*
-
-%post
-/sbin/chkconfig --add sysstat
