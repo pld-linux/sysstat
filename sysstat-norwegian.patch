@@ -1,11 +1,11 @@
 --- sysstat-5.0.5/Makefile	2004-05-26 19:46:37.000000000 +0000
-+++ sysstat-5.0.5.new/Makefile	2004-06-12 19:57:10.134999552 +0000
++++ sysstat-5.0.5.new/Makefile	2004-06-12 20:44:54.682522136 +0000
 @@ -117,7 +117,7 @@
  	$(CC) -o $@ $(CFLAGS) $(DFLAGS) $< $(LFLAGS)
  
  ifdef REQUIRE_NLS
 -locales: nls/fr/$(PACKAGE).mo nls/de/$(PACKAGE).mo nls/es/$(PACKAGE).mo nls/pt/$(PACKAGE).mo nls/af/$(PACKAGE).mo nls/nb_NO/$(PACKAGE).mo nls/nn_NO/$(PACKAGE).mo nls/it/$(PACKAGE).mo nls/ru/$(PACKAGE).mo nls/ro/$(PACKAGE).mo nls/pl/$(PACKAGE).mo nls/sk/$(PACKAGE).mo nls/ja/$(PACKAGE).mo
-+locales: nls/fr/$(PACKAGE).mo nls/de/$(PACKAGE).mo nls/es/$(PACKAGE).mo nls/pt/$(PACKAGE).mo nls/af/$(PACKAGE).mo nls/nb/$(PACKAGE).mo nls/nn/$(PACKAGE).mo nls/it/$(PACKAGE).mo nls/ru/$(PACKAGE).mo nls/ro/$(PACKAGE).mo nls/pl/$(PACKAGE).mo nls/sk/$(PACKAGE).mo
++locales: nls/fr/$(PACKAGE).mo nls/de/$(PACKAGE).mo nls/es/$(PACKAGE).mo nls/pt/$(PACKAGE).mo nls/af/$(PACKAGE).mo nls/nb/$(PACKAGE).mo nls/nn/$(PACKAGE).mo nls/it/$(PACKAGE).mo nls/ru/$(PACKAGE).mo nls/ro/$(PACKAGE).mo nls/pl/$(PACKAGE).mo nls/sk/$(PACKAGE).mo nls/ja/$(PACKAGE).mo
  else
  locales:
  endif
@@ -81,7 +81,7 @@
  	install -m 644 nls/ru/$(PACKAGE).mo $(DESTDIR)$(NLS_DIR)/ru/LC_MESSAGES
  	install -m 644 nls/ro/$(PACKAGE).mo $(DESTDIR)$(NLS_DIR)/ro/LC_MESSAGES
 --- sysstat-5.0.5/README	2004-06-02 18:55:40.000000000 +0000
-+++ sysstat-5.0.5.new/README	2004-06-12 19:52:16.294670072 +0000
++++ sysstat-5.0.5.new/README	2004-06-12 20:46:35.411209048 +0000
 @@ -79,8 +79,8 @@
  ${PREFIX}/share/locale/fr/LC_MESSAGES/sysstat.mo
  ${PREFIX}/share/locale/it/LC_MESSAGES/sysstat.mo
