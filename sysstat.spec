@@ -14,6 +14,7 @@ Source1:	%{name}.crond
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
 Patch1:		%{name}-verbose.patch
+Patch2:		%{name}-norwegian.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 BuildRequires:	gettext-devel
 BuildRequires:	sh-utils
@@ -51,6 +52,10 @@ sieciowych i innych operacji wej¶cia/wyj¶cia.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+
+mv -f nls/nb_NO nls/no
+mv -f nls/nn_NO nls/nn
 
 %build
 echo "%{_prefix}
