@@ -9,6 +9,7 @@ Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
+# Source0-md5:	ce24f45bc5bc8af94ed3c28636ebf4a3
 Source1:	%{name}.crond
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
