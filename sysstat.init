@@ -21,7 +21,7 @@ case "$1" in
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/sysstat
 	else
-		msg_Already_Running "system activity data collector"
+		msg_already_running "system activity data collector"
 		exit 1
 	fi
 	;;
@@ -32,10 +32,9 @@ case "$1" in
 		echo
                 rm -f /var/lock/subsys/sysstat >/dev/null 2>&1
         else
-                msg_Not_Running "system activity data collector"
+                msg_not_running "system activity data collector"
                 exit 1
         fi
-																	
 	;;
   status)
 	status sysstat
@@ -45,7 +44,7 @@ case "$1" in
 	$0 start
 	;;
   *)
-	msg_Usage: "$0 {start|stop|status|restart}"
+	msg_usage: "$0 {start|stop|status|restart}"
 	exit 1
 esac
 
