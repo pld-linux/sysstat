@@ -1,25 +1,32 @@
---- sysstat-4.1.6/Makefile.orig	Fri Sep  5 01:40:13 2003
-+++ sysstat-4.1.6/Makefile	Fri Sep  5 01:43:28 2003
-@@ -106,15 +106,15 @@
- mpstat: mpstat.c mpstat.h common.h version.h libsysstat.a
+diff -ur sysstat-5.0.0.orig/Makefile sysstat-5.0.0/Makefile
+--- sysstat-5.0.0.orig/Makefile	2003-11-16 02:14:02.000000000 +0100
++++ sysstat-5.0.0/Makefile	2003-11-16 02:17:05.000000000 +0100
+@@ -110,7 +110,7 @@
  	$(CC) -o $@ $(CFLAGS) $(DFLAGS) $< $(LFLAGS)
  
--locales: nls/fr/$(PACKAGE).po nls/de/$(PACKAGE).po nls/es/$(PACKAGE).po nls/pt/$(PACKAGE).po nls/af/$(PACKAGE).po nls/nb_NO/$(PACKAGE).po nls/nn_NO/$(PACKAGE).po nls/it/$(PACKAGE).po nls/ru/$(PACKAGE).po nls/ro/$(PACKAGE).po nls/pl/$(PACKAGE).po
-+locales: nls/fr/$(PACKAGE).po nls/de/$(PACKAGE).po nls/es/$(PACKAGE).po nls/pt/$(PACKAGE).po nls/af/$(PACKAGE).po nls/no/$(PACKAGE).po nls/nn/$(PACKAGE).po nls/it/$(PACKAGE).po nls/ru/$(PACKAGE).po nls/ro/$(PACKAGE).po nls/pl/$(PACKAGE).po
  ifdef REQUIRE_NLS
- 	$(MSGFMT) -o nls/fr/$(PACKAGE).mo nls/fr/$(PACKAGE).po
- 	$(MSGFMT) -o nls/de/$(PACKAGE).mo nls/de/$(PACKAGE).po
- 	$(MSGFMT) -o nls/es/$(PACKAGE).mo nls/es/$(PACKAGE).po
- 	$(MSGFMT) -o nls/pt/$(PACKAGE).mo nls/pt/$(PACKAGE).po
+-locales: nls/fr/$(PACKAGE).mo nls/de/$(PACKAGE).mo nls/es/$(PACKAGE).mo nls/pt/$(PACKAGE).mo nls/af/$(PACKAGE).mo nls/nb_NO/$(PACKAGE).mo nls/nn_NO/$(PACKAGE).mo nls/it/$(PACKAGE).mo nls/ru/$(PACKAGE).mo nls/ro/$(PACKAGE).mo nls/pl/$(PACKAGE).mo
++locales: nls/fr/$(PACKAGE).mo nls/de/$(PACKAGE).mo nls/es/$(PACKAGE).mo nls/pt/$(PACKAGE).mo nls/af/$(PACKAGE).mo nls/no/$(PACKAGE).mo nls/nn/$(PACKAGE).mo nls/it/$(PACKAGE).mo nls/ru/$(PACKAGE).mo nls/ro/$(PACKAGE).mo nls/pl/$(PACKAGE).mo
+ else
+ locales:
+ endif
+@@ -130,11 +130,11 @@
+ nls/af/$(PACKAGE).mo: nls/af/$(PACKAGE).po
  	$(MSGFMT) -o nls/af/$(PACKAGE).mo nls/af/$(PACKAGE).po
+ 
+-nls/nb_NO/$(PACKAGE).mo: nls/nb_NO/$(PACKAGE).po
 -	$(MSGFMT) -o nls/nb_NO/$(PACKAGE).mo nls/nb_NO/$(PACKAGE).po
--	$(MSGFMT) -o nls/nn_NO/$(PACKAGE).mo nls/nn_NO/$(PACKAGE).po
-+	$(MSGFMT) -o nls/nn/$(PACKAGE).mo nls/nn/$(PACKAGE).po
++nls/no/$(PACKAGE).mo: nls/no/$(PACKAGE).po
 +	$(MSGFMT) -o nls/no/$(PACKAGE).mo nls/no/$(PACKAGE).po
+ 
+-nls/nn_NO/$(PACKAGE).mo: nls/nn_NO/$(PACKAGE).po
+-	$(MSGFMT) -o nls/nn_NO/$(PACKAGE).mo nls/nn_NO/$(PACKAGE).po
++nls/nn/$(PACKAGE).mo: nls/nn/$(PACKAGE).po
++	$(MSGFMT) -o nls/nn/$(PACKAGE).mo nls/nn/$(PACKAGE).po
+ 
+ nls/it/$(PACKAGE).mo: nls/it/$(PACKAGE).po
  	$(MSGFMT) -o nls/it/$(PACKAGE).mo nls/it/$(PACKAGE).po
- 	$(MSGFMT) -o nls/ru/$(PACKAGE).mo nls/ru/$(PACKAGE).po
- 	$(MSGFMT) -o nls/ro/$(PACKAGE).mo nls/ro/$(PACKAGE).po
-@@ -144,8 +144,8 @@
+@@ -171,8 +171,8 @@
  	rm -f $(DESTDIR)$(PREFIX)/share/locale/es/LC_MESSAGES/$(PACKAGE).mo
  	rm -f $(DESTDIR)$(PREFIX)/share/locale/pt/LC_MESSAGES/$(PACKAGE).mo
  	rm -f $(DESTDIR)$(PREFIX)/share/locale/af/LC_MESSAGES/$(PACKAGE).mo
@@ -30,7 +37,7 @@
  	rm -f $(DESTDIR)$(PREFIX)/share/locale/it/LC_MESSAGES/$(PACKAGE).mo
  	rm -f $(DESTDIR)$(PREFIX)/share/locale/ru/LC_MESSAGES/$(PACKAGE).mo
  	rm -f $(DESTDIR)$(PREFIX)/share/locale/ro/LC_MESSAGES/$(PACKAGE).mo
-@@ -155,8 +155,8 @@
+@@ -182,8 +182,8 @@
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/es/LC_MESSAGES
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/pt/LC_MESSAGES
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/af/LC_MESSAGES
@@ -41,7 +48,7 @@
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/it/LC_MESSAGES
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/ru/LC_MESSAGES
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/ro/LC_MESSAGES
-@@ -166,8 +166,8 @@
+@@ -193,8 +193,8 @@
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/es
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/pt
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/af
@@ -52,7 +59,7 @@
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/it
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/ru
  	-rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PREFIX)/share/locale/ro
-@@ -220,8 +220,8 @@
+@@ -247,8 +247,8 @@
  	mkdir -p $(DESTDIR)$(NLS_DIR)/es/LC_MESSAGES
  	mkdir -p $(DESTDIR)$(NLS_DIR)/pt/LC_MESSAGES
  	mkdir -p $(DESTDIR)$(NLS_DIR)/af/LC_MESSAGES
@@ -63,7 +70,7 @@
  	mkdir -p $(DESTDIR)$(NLS_DIR)/it/LC_MESSAGES
  	mkdir -p $(DESTDIR)$(NLS_DIR)/ru/LC_MESSAGES
  	mkdir -p $(DESTDIR)$(NLS_DIR)/ro/LC_MESSAGES
-@@ -231,8 +231,8 @@
+@@ -258,8 +258,8 @@
  	install -m 644 nls/es/$(PACKAGE).mo $(DESTDIR)$(NLS_DIR)/es/LC_MESSAGES
  	install -m 644 nls/pt/$(PACKAGE).mo $(DESTDIR)$(NLS_DIR)/pt/LC_MESSAGES
  	install -m 644 nls/af/$(PACKAGE).mo $(DESTDIR)$(NLS_DIR)/af/LC_MESSAGES
@@ -74,9 +81,10 @@
  	install -m 644 nls/it/$(PACKAGE).mo $(DESTDIR)$(NLS_DIR)/it/LC_MESSAGES
  	install -m 644 nls/ru/$(PACKAGE).mo $(DESTDIR)$(NLS_DIR)/ru/LC_MESSAGES
  	install -m 644 nls/ro/$(PACKAGE).mo $(DESTDIR)$(NLS_DIR)/ro/LC_MESSAGES
---- sysstat-4.1.6/README.orig	Fri Sep  5 01:40:18 2003
-+++ sysstat-4.1.6/README	Fri Sep  5 01:40:43 2003
-@@ -86,8 +86,8 @@
+diff -ur sysstat-5.0.0.orig/README sysstat-5.0.0/README
+--- sysstat-5.0.0.orig/README	2003-11-16 02:14:02.000000000 +0100
++++ sysstat-5.0.0/README	2003-11-16 02:14:13.000000000 +0100
+@@ -84,8 +84,8 @@
  ${PREFIX}/share/locale/es/LC_MESSAGES/sysstat.mo
  ${PREFIX}/share/locale/pt/LC_MESSAGES/sysstat.mo
  ${PREFIX}/share/locale/af/LC_MESSAGES/sysstat.mo
