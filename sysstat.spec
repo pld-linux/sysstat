@@ -5,13 +5,14 @@ Summary(uk):	М╕стить команди системного мон╕торингу sar та iostat
 Summary(zh_CN):	sar, iostat ╣хо╣мЁ╪Юйс╧╓╬ъ
 Name:		sysstat
 Version:	5.0.5
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
 # Source0-md5:	5fbe915c32761f28e7af27a7f956f7f2
 Source1:	%{name}.crond
 Source2:	%{name}.init
+Source3:	%{name}.sysconfig
 Patch0:		%{name}-opt.patch
 Patch1:		%{name}-norwegian.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
@@ -71,12 +72,13 @@ n" | /bin/sh build/Configure.sh
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d},/var/log/sa}
+install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d,sysconfig},/var/log/sa}
 
 %{__make} install
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.d/sysstat
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 
 %find_lang %{name}
 
@@ -105,4 +107,5 @@ fi
 %attr(755,root,root) %dir /var/log/sa
 %attr(640,root,root) /etc/cron.d/sysstat
 %attr(754,root,root) /etc/rc.d/init.d/sysstat
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/*
 %{_mandir}/man*/*
