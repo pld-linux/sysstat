@@ -103,7 +103,7 @@ fi
 %defattr(644,root,root,755)
 %doc CHANGES CREDITS README *.sample TODO FAQ
 %attr(755,root,root) %{_bindir}/*
-%attr(750,root,root) %{_libdir}/sa*
+%attr(750,root,root) %{_prefix}/lib/sa*
 %attr(755,root,root) %dir /var/log/sa
 %attr(640,root,root) /etc/cron.d/sysstat
 %attr(754,root,root) /etc/rc.d/init.d/sysstat
