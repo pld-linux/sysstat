@@ -92,7 +92,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc CHANGES CREDITS README *.sample TODO
+%doc CHANGES CREDITS README *.sample TODO FAQ
 %attr(755,root,root) %{_bindir}/*
 %attr(750,root,root) %{_libdir}/sa*
 %attr(755,root,root) %dir /var/log/sa
