@@ -1,0 +1,23 @@
+diff -urN sysstat-3.3.4.org/Makefile sysstat-3.3.4/Makefile
+--- sysstat-3.3.4.org/Makefile	Sat Feb  3 10:00:00 2001
++++ sysstat-3.3.4/Makefile	Sat Feb  3 10:18:02 2001
+@@ -24,7 +24,7 @@
+ DESTDIR = $(RPM_BUILD_ROOT)
+ BIN_DIR = $(PREFIX)/bin
+ LIB_DIR = $(PREFIX)/lib
+-MAN_DIR = $(PREFIX)/man
++MAN_DIR = $(PREFIX)/share/man
+ MAN1_DIR = $(MAN_DIR)/man1
+ MAN8_DIR = $(MAN_DIR)/man8
+ SA_DIR = /var/log/sa
+@@ -32,8 +32,8 @@
+ NLS_DIR = $(PREFIX)/share/locale
+ 
+ # Compiler flags
+-CFLAGS = -Wall -Wstrict-prototypes -pipe -O2 -fno-strength-reduce
+-LFLAGS = -L. -lsysstat -s
++CFLAGS = -Wall -Wstrict-prototypes -pipe $(OPT_FLAGS) -fno-strength-reduce
++LFLAGS = -L. -lsysstat
+ SAS_DFLAGS += -DSA_DIR=\"$(SA_DIR)\"
+ 
+ # NLS (National Language Support)
