@@ -1,6 +1,6 @@
 # $Id$
 
 # command line options/usr/lib/sa/sadc
-SADC_OPTIONS=""
+SADC_OPTIONS="-F"
 
 # vi: filetype=sh
