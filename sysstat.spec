@@ -4,7 +4,7 @@ Summary(ru):	Содержит программы системного мониторинга sar и iostat
 Summary(uk):	М╕стить команди системного мон╕торингу sar та iostat
 Name:		sysstat
 Version:	4.0.5
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
@@ -54,6 +54,8 @@ echo "%{_prefix}
 n
 y
 n
+y
+7
 `id -gn`
 n" | /bin/sh build/Configure.sh
 
