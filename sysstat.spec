@@ -88,9 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add sysstat
-if [ -f /var/lock/subsys/sysstat ]; then
-	/etc/rc.d/init.d/sysstat restart >&2
-else
+if [ ! -f /var/lock/subsys/sysstat ]; then
 	echo "Run \"/etc/rc.d/init.d/sysstat start\" to start sysstat." >&2
 fi
 
