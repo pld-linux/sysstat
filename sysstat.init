@@ -28,7 +28,7 @@ case "$1" in
 	if [ -f /var/lock/subsys/sysstat ]; then
 		# Stop daemons.
 		msg_stopping "system activity data collector"
-		echo
+		killproc sadc
 		rm -f /var/lock/subsys/sysstat >/dev/null 2>&1
 	else
 		msg_not_running "system activity data collector"
