@@ -1,8 +1,8 @@
 Summary:	SAR, MPSTAT and IOSTAT for Linux
 Summary(pl):	SAR, MPSTAT and IOSTAT dla Linuksa
 Name:		sysstat
-Version:	4.0.1
-Release:	2
+Version:	4.0.3
+Release:	1
 License:	GPL
 Group:		Applications/System
 Group(de):	Applikationen/System
