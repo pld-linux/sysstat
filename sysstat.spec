@@ -14,11 +14,11 @@ Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
 Patch1:		%{name}-verbose.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
-Requires:	crondaemon
-Prereq:		rc-scripts
-Prereq:		/sbin/chkconfig
 BuildRequires:	gettext-devel
 BuildRequires:	sh-utils
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
+Requires:	crondaemon
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
