@@ -3,8 +3,8 @@ Summary(pl):	Polecenia sar i iostat dla systemu Linux
 Summary(ru):	Содержит программы системного мониторинга sar и iostat
 Summary(uk):	М╕стить команди системного мон╕торингу sar та iostat
 Name:		sysstat
-Version:	4.0.5
-Release:	3
+Version:	4.0.6
+Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
