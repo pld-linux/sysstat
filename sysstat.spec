@@ -10,7 +10,7 @@ Source1:	%{name}.crond
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
-Requires:       crondaemon
+Requires:	crondaemon
 Prereq:		rc-scripts
 Prereq:		/sbin/chkconfig
 BuildRequires:	gettext-devel
