@@ -1,13 +1,13 @@
 Summary:	SAR, MPSTAT and IOSTAT for Linux
 Summary(pl):	SAR, MPSTAT and IOSTAT dla Linuxa
 Name:		sysstat
-Version:	3.3.6
+Version:	4.0.0
 Release:	1
 License:	GPL
 Group:		Applications/System
 Group(de):	Applikationen/System
 Group(pl):	Aplikacje/System
-Source0:	http://www.ibiblio.org/pub/Linux/system/status/%{name}-%{version}.tar.gz
+Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
 Source1:	%{name}.crond
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
@@ -30,6 +30,8 @@ SAR, MPSTAT and IOSTAT dla Linuxa.
 
 %build
 echo "%{_prefix}
+/var/log/sa
+n
 y
 n
 `id -gn`
@@ -39,9 +41,10 @@ OPT_FLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d},/var/log/sa}
 
 %{__make} install
-install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d},/var/log/sa}
+
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.d/sysstat
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
 
