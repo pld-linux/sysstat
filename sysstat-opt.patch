@@ -1,6 +1,7 @@
---- sysstat-4.0.3/Makefile.orig	Sat Dec 29 17:48:18 2001
-+++ sysstat-4.0.3/Makefile	Tue Jan 29 00:03:13 2002
-@@ -26,17 +26,15 @@
+diff -burN sysstat-5.1.4.orig/Makefile sysstat-5.1.4/Makefile
+--- sysstat-5.1.4.orig/Makefile	2005-01-05 10:42:16.648518936 +0100
++++ sysstat-5.1.4/Makefile	2005-01-05 10:51:13.930839608 +0100
+@@ -26,9 +26,7 @@
  endif
  DESTDIR = $(RPM_BUILD_ROOT)
  BIN_DIR = $(PREFIX)/bin
@@ -11,17 +12,18 @@
  MAN1_DIR = $(MAN_DIR)/man1
  MAN8_DIR = $(MAN_DIR)/man8
  DOC_DIR = $(PREFIX)/doc/sysstat-$(VERSION)
- NLS_DIR = $(PREFIX)/share/locale
+@@ -36,8 +34,8 @@
+ SYSCONFIG_DIR = /etc/sysconfig
  
  # Compiler flags
 -CFLAGS = -Wall -Wstrict-prototypes -pipe -O2 -fno-strength-reduce
--LFLAGS = -L. -lsysstat -lsa -s
-+CFLAGS = -Wall -Wstrict-prototypes -pipe $(OPT_FLAGS) -fno-strength-reduce
-+LFLAGS = -L. -lsysstat -lsa
- SAS_DFLAGS += -DSA_DIR=\"$(SA_DIR)\"
+-LFLAGS = -L. -lsyscom -s
++CFLAGS = -Wall -Wstrict-prototypes -pipe $(OPTFLAGS) -fno-strength-reduce
++LFLAGS = -L. -lsyscom
+ LSAFLAG = -lsyssa
+ SAS_DFLAGS += -DSA_DIR=\"$(SA_DIR)\" -DSADC_PATH=\"$(SADC_PATH)\"
  
- # NLS (National Language Support)
-@@ -43,11 +41,7 @@
+@@ -47,11 +45,7 @@
  # The msgfmt command
  MSGFMT = msgfmt
  
@@ -33,5 +35,3 @@
  
  # Run-command directories
  ifndef RC_DIR
---- Makefile~	2004-11-19 02:24:25.167837336 +0000
-+++ Makefile	2004-11-19 02:26:36.417884296 +0000
