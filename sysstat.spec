@@ -11,6 +11,7 @@ Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
 Source1:	%{name}.crond
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
+Patch1:		%{name}-verbose.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 Requires:	crondaemon
 Prereq:		rc-scripts
@@ -43,6 +44,7 @@ sieciowych i innych operacji wej¶cia/wyj¶cia.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 echo "%{_prefix}
