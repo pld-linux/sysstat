@@ -4,7 +4,7 @@
 #
 # chkconfig:	2345 35 55
 #
-# description:	Sysstat system monitoring tools (sar,iostat,mpstat) \
+# description:	Sysstat system monitoring tools (sar,iostat,mpstat)
 #
 
 # Source function library
