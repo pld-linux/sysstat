@@ -1,0 +1,22 @@
+--- sysstat-4.0.1/sadc.c.verbose	Mon Aug 13 16:03:14 2001
++++ sysstat-4.0.1/sadc.c	Mon Aug 13 16:04:01 2001
+@@ -650,7 +650,7 @@
+ 	    return;
+ 	 }
+ 	 if ((size != FILE_HDR_SIZE) || (file_hdr.sa_magic != SA_MAGIC)) {
+-	    fprintf(stderr, _("Invalid system activity file\n"));
++	    fprintf(stderr, _("Invalid system activity file: %s\n"), ofile);
+ 	    exit(3);
+ 	 }
+ 	 /*
+--- sysstat-4.0.1/sar.c.verbose	Mon Aug 13 16:04:09 2001
++++ sysstat-4.0.1/sar.c	Mon Aug 13 16:04:32 2001
+@@ -2120,7 +2120,7 @@
+    /* Read sa data file header */
+    nb = read(ifd, &file_hdr, FILE_HDR_SIZE);
+    if ((nb != FILE_HDR_SIZE) || (file_hdr.sa_magic != SA_MAGIC)) {
+-      fprintf(stderr, _("Invalid system activity file\n"));
++      fprintf(stderr, _("Invalid system activity file: %s\n"), from_file);
+       exit(3);
+    }
+ 
