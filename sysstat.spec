@@ -4,7 +4,7 @@ Summary(ru):	Содержит программы системного мониторинга sar и iostat
 Summary(uk):	М╕стить команди системного мон╕торингу sar та iostat
 Summary(zh_CN):	sar, iostat ╣хо╣мЁ╪Юйс╧╓╬ъ
 Name:		sysstat
-Version:	4.0.7
+Version:	4.1.1
 Release:	1
 License:	GPL
 Group:		Applications/System
@@ -13,7 +13,6 @@ Source1:	%{name}.crond
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
 Patch1:		%{name}-verbose.patch
-Patch2:		%{name}-nls.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 Requires:	crondaemon
 Prereq:		rc-scripts
@@ -51,7 +50,6 @@ sieciowych i innych operacji wej╤cia/wyj╤cia.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 echo "%{_prefix}
