@@ -72,8 +72,6 @@ install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d},/var/log/sa}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.d/sysstat
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
 
-gzip -9nf CHANGES CREDITS README *.sample TODO
-
 %find_lang %{name}
 
 %clean
@@ -89,9 +87,9 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc *.gz
+%doc CHANGES CREDITS README *.sample TODO
 %attr(755,root,root) %{_bindir}/*
-%attr(750,root,root)%{_libdir}/sa*
+%attr(750,root,root) %{_libdir}/sa*
 %attr(755,root,root) %dir /var/log/sa
 %attr(640,root,root) /etc/cron.d/sysstat
 %attr(754,root,root) /etc/rc.d/init.d/sysstat
