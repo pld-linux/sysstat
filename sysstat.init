@@ -19,7 +19,7 @@ case "$1" in
 		msg_starting "system activity data collector"
 		daemon /usr/lib/sa/sadc
 		RETVAL=$?
-		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/sysstat
+		[ "$RETVAL" -eq 0 ] && touch /var/lock/subsys/sysstat
 	else
 		msg_already_running "system activity data collector"
 	fi
@@ -42,9 +42,11 @@ case "$1" in
 	$0 stop
 	$0 start
 	exit $?
+	;;
   *)
 	msg_usage "$0 {start|stop|restart|force-reload|status}"
 	exit 3
+	;;
 esac
 
 exit $RETVAL
