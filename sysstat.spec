@@ -2,14 +2,18 @@ Summary:	SAR, MPSTAT and IOSTAT for Linux
 Summary(pl):	SAR, MPSTAT and IOSTAT dla Linuxa
 Name:		sysstat
 Version:	3.3.5
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/System
 Group(de):	Applikationen/System
 Group(pl):	Aplikacje/System
 Source0:	http://www.ibiblio.org/pub/Linux/system/status/%{name}-%{version}.tar.gz
+Source1:	%{name}.crond
+Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
+Requires:       crondaemon
+Requires:	rc-scripts
 BuildRequires:	gettext-devel
 BuildRequires:	sh-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -37,6 +41,9 @@ OPT_FLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" %{__make}
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install
+install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d},/var/log/sa}
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.d/sysstat
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
 
 gzip -9nf CHANGES CREDITS README *.sample TODO
 
@@ -49,5 +56,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.gz
 %attr(755,root,root) %{_bindir}/*
-%{_libdir}/sa
+%attr(750,root,root)%{_libdir}/sa*
+%attr(755,root,root) %dir /var/log/sa
+%attr(640,root,root) /etc/cron.d/sysstat
+%attr(754,root,root) /etc/rc.d/init.d/sysstat
 %{_mandir}/man*/*
+
+%post
+/sbin/chkconfig --add sysstat
