@@ -87,13 +87,11 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ "$1" = "1" ]; then
-	/sbin/chkconfig --add sysstat
-	echo "Run \"/etc/rc.d/init.d/sysstat start\" to start sysstat." >&2
+/sbin/chkconfig --add sysstat
+if [ -f /var/lock/subsys/sysstat ]; then
+	/etc/rc.d/init.d/sysstat restart >&2
 else
-	if [ -f /var/lock/subsys/sysstat ]; then
-		/etc/rc.d/init.d/sysstat restart >&2
-	fi
+	echo "Run \"/etc/rc.d/init.d/sysstat start\" to start sysstat." >&2
 fi
 
 %preun
