@@ -1,9 +1,9 @@
 --- sysstat-4.0.3/Makefile.orig	Sat Dec 29 17:48:18 2001
 +++ sysstat-4.0.3/Makefile	Tue Jan 29 00:03:13 2002
-@@ -24,17 +24,15 @@
+@@ -26,17 +26,15 @@
+ endif
  DESTDIR = $(RPM_BUILD_ROOT)
  BIN_DIR = $(PREFIX)/bin
- LIB_DIR = $(PREFIX)/lib
 -ifndef MAN_DIR
 -MAN_DIR = $(PREFIX)/man
 -endif
@@ -15,9 +15,9 @@
  
  # Compiler flags
 -CFLAGS = -Wall -Wstrict-prototypes -pipe -O2 -fno-strength-reduce
--LFLAGS = -L. -lsysstat -s
+-LFLAGS = -L. -lsysstat -lsa -s
 +CFLAGS = -Wall -Wstrict-prototypes -pipe $(OPT_FLAGS) -fno-strength-reduce
-+LFLAGS = -L. -lsysstat
++LFLAGS = -L. -lsysstat -lsa
  SAS_DFLAGS += -DSA_DIR=\"$(SA_DIR)\"
  
  # NLS (National Language Support)
@@ -33,3 +33,5 @@
  
  # Run-command directories
  ifndef RC_DIR
+--- Makefile~	2004-11-19 02:24:25.167837336 +0000
++++ Makefile	2004-11-19 02:26:36.417884296 +0000

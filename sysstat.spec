@@ -4,12 +4,12 @@ Summary(ru):	Содержит программы системного мониторинга sar и iostat
 Summary(uk):	М╕стить команди системного мон╕торингу sar та iostat
 Summary(zh_CN):	sar, iostat ╣хо╣мЁ╪Юйс╧╓╬ъ
 Name:		sysstat
-Version:	5.0.5
-Release:	2
+Version:	5.1.2
+Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
-# Source0-md5:	5fbe915c32761f28e7af27a7f956f7f2
+# Source0-md5:	9043be730f534f0f8a07f1252f663022
 Source1:	%{name}.crond
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
@@ -50,13 +50,14 @@ sieciowych i innych operacji wej╤cia/wyj╤cia.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
+%patch1
 
-mv -f nls/nb_NO nls/nb
-mv -f nls/nn_NO nls/nn
+mv -f nls/nb_NO.po nls/nb.po
+mv -f nls/nn_NO.po nls/nn.po
 
 %build
 echo "%{_prefix}
+%{_prefix}/lib/sa
 /var/log/sa
 n
 y
