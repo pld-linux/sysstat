@@ -2,7 +2,7 @@ Summary:	The sar and iostat system monitoring commands
 Summary(pl):	Polecenia sar i iostat dla systemu Linux
 Summary(ru):	Содержит программы системного мониторинга sar и iostat
 Summary(uk):	М╕стить команди системного мон╕торингу sar та iostat
-Summary(zh_CN):	sar, iostat ╣хо╣мЁ╪Юйс╧╓╬ъ.
+Summary(zh_CN):	sar, iostat ╣хо╣мЁ╪Юйс╧╓╬ъ
 Name:		sysstat
 Version:	4.0.7
 Release:	1
