@@ -14,6 +14,7 @@ Source1:	%{name}.crond
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
 Patch0:		%{name}-opt.patch
+Patch1:		%{name}-gcc4.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 BuildRequires:	gettext-devel
 PreReq:		rc-scripts
@@ -49,6 +50,7 @@ sieciowych i innych operacji wej¶cia/wyj¶cia.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 echo "%{_prefix}
