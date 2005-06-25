@@ -4,17 +4,16 @@ Summary(ru):	Содержит программы системного мониторинга sar и iostat
 Summary(uk):	М╕стить команди системного мон╕торингу sar та iostat
 Summary(zh_CN):	sar, iostat ╣хо╣мЁ╪Юйс╧╓╬ъ
 Name:		sysstat
-Version:	6.0.0
+Version:	6.0.1
 Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
-# Source0-md5:	706044b99a29b7de7bf4b06310bbe6a6
+# Source0-md5:	42670b66b01b830f82e86117659cd43d
 Source1:	%{name}.crond
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
 Patch0:		%{name}-opt.patch
-Patch1:		%{name}-gcc4.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 BuildRequires:	gettext-devel
 PreReq:		rc-scripts
@@ -50,7 +49,6 @@ sieciowych i innych operacji wej╤cia/wyj╤cia.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 echo "%{_prefix}
