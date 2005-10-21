@@ -102,6 +102,6 @@ fi
 %attr(755,root,root) %{_prefix}/lib/sa*
 %attr(750,root,root) %dir /var/log/sa
 %attr(754,root,root) /etc/rc.d/init.d/*
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/cron.d/*
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/*
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/cron.d/*
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/*
 %{_mandir}/man*/*
