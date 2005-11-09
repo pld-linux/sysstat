@@ -18,8 +18,8 @@ diff -burN sysstat-5.1.4.orig/Makefile sysstat-5.1.4/Makefile
  # Compiler flags
 -CFLAGS = -Wall -Wstrict-prototypes -pipe -O2 -fno-strength-reduce
 -LFLAGS = -L. -lsyscom -s
-+CFLAGS = -Wall -Wstrict-prototypes -pipe $(OPTFLAGS) -fno-strength-reduce
-+LFLAGS = -L. -lsyscom
++override CFLAGS += -Wall -Wstrict-prototypes -pipe -fno-strength-reduce
++override LFLAGS += -L. -lsyscom
  LSAFLAG = -lsyssa
  SAS_DFLAGS += -DSA_DIR=\"$(SA_DIR)\" -DSADC_PATH=\"$(SADC_PATH)\"
  

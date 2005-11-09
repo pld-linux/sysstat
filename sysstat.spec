@@ -64,7 +64,7 @@ n" | /bin/sh build/Configure.sh
 
 %{__make} \
 	CC="%{__cc}" \
-	OPT_FLAGS="%{rpmcflags}"
+	CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
