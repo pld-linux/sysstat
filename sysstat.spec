@@ -6,7 +6,7 @@ Summary(zh_CN):	sar, iostat 等系统监视工具
 Name:		sysstat
 Version:	6.0.1
 Release:	1
-License:	GPL
+License:	GPL v2
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
 # Source0-md5:	42670b66b01b830f82e86117659cd43d
@@ -16,7 +16,7 @@ Source3:	%{name}.sysconfig
 Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 BuildRequires:	gettext-devel
-PreReq:		rc-scripts
+Requires:	rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	crondaemon
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
