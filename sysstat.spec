@@ -16,9 +16,10 @@ Source3:	%{name}.sysconfig
 Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 BuildRequires:	gettext-devel
-Requires:	rc-scripts
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	crondaemon
+Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -83,15 +84,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add sysstat
-if [ ! -f /var/lock/subsys/sysstat ]; then
-	echo "Run \"/etc/rc.d/init.d/sysstat start\" to start sysstat." >&2
-fi
+%service sysstat restart
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/sysstat ]; then
-		/etc/rc.d/init.d/sysstat stop >&2
-	fi
+	%service sysstat stop
 	/sbin/chkconfig --del sysstat
 fi
 
