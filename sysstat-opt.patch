@@ -1,29 +1,29 @@
-diff -burN sysstat-5.1.4.orig/Makefile sysstat-5.1.4/Makefile
---- sysstat-5.1.4.orig/Makefile	2005-01-05 10:42:16.648518936 +0100
-+++ sysstat-5.1.4/Makefile	2005-01-05 10:51:13.930839608 +0100
-@@ -26,9 +26,7 @@
+--- sysstat-6.1.2/Makefile.orig	2006-04-30 11:00:53.725281750 +0200
++++ sysstat-6.1.2/Makefile	2006-04-30 11:00:50.133057250 +0200
+@@ -24,10 +24,7 @@
  endif
  DESTDIR = $(RPM_BUILD_ROOT)
  BIN_DIR = $(PREFIX)/bin
 -ifndef MAN_DIR
+-# Don't use $(PREFIX)/share/man by default: not necessarily in man path!
 -MAN_DIR = $(PREFIX)/man
 -endif
 +MAN_DIR = $(PREFIX)/share/man
  MAN1_DIR = $(MAN_DIR)/man1
  MAN8_DIR = $(MAN_DIR)/man8
  DOC_DIR = $(PREFIX)/doc/sysstat-$(VERSION)
-@@ -36,8 +34,8 @@
+@@ -35,8 +32,8 @@
  SYSCONFIG_DIR = /etc/sysconfig
  
  # Compiler flags
 -CFLAGS = -Wall -Wstrict-prototypes -pipe -O2 -fno-strength-reduce
--LFLAGS = -L. -lsyscom -s
+-LFLAGS = -s
 +override CFLAGS += -Wall -Wstrict-prototypes -pipe -fno-strength-reduce
-+override LFLAGS += -L. -lsyscom
- LSAFLAG = -lsyssa
++override LFLAGS += -s
  SAS_DFLAGS += -DSA_DIR=\"$(SA_DIR)\" -DSADC_PATH=\"$(SADC_PATH)\"
  
-@@ -47,11 +45,7 @@
+ # NLS (National Language Support)
+@@ -45,11 +42,7 @@
  # The msgfmt command
  MSGFMT = msgfmt
  
