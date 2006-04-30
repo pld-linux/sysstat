@@ -78,6 +78,7 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 
 %find_lang %{name}
+rm -rf $RPM_BUILD_ROOT%{_prefix}/doc/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
