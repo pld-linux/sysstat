@@ -1,8 +1,8 @@
 Summary:	The sar and iostat system monitoring commands
-Summary(pl):	Polecenia sar i iostat dla systemu Linux
-Summary(ru):	Содержит программы системного мониторинга sar и iostat
-Summary(uk):	М╕стить команди системного мон╕торингу sar та iostat
-Summary(zh_CN):	sar, iostat ╣хо╣мЁ╪Юйс╧╓╬ъ
+Summary(pl.UTF-8):   Polecenia sar i iostat dla systemu Linux
+Summary(ru.UTF-8):   п║п╬п╢п╣я─п╤п╦я┌ п©я─п╬пЁя─п╟п╪п╪я▀ я│п╦я│я┌п╣п╪п╫п╬пЁп╬ п╪п╬п╫п╦я┌п╬я─п╦п╫пЁп╟ sar п╦ iostat
+Summary(uk.UTF-8):   п°я√я│я┌п╦я┌я▄ п╨п╬п╪п╟п╫п╢п╦ я│п╦я│я┌п╣п╪п╫п╬пЁп╬ п╪п╬п╫я√я┌п╬я─п╦п╫пЁя┐ sar я┌п╟ iostat
+Summary(zh_CN.UTF-8):   sar, iostat Г╜┴ГЁ╩Г╩÷Г⌡▒Х╖├Е╥╔Е┘╥
 Name:		sysstat
 Version:	6.1.2
 Release:	1
@@ -27,25 +27,25 @@ This package provides the sar and iostat commands for the Linux
 operating system, similar to their traditional UNIX counterparts. They
 enable system monitoring of disk, network, and other IO activity.
 
-%description -l pl
-Pakiet ten udostЙpnia polecenia sar i iostat dla systemu Linux podobne
-w dziaЁaniu do tradycyjnych narzЙdzi systemu Unix. Polecenia te
-umo©liwiaj╠ monitorowanie obci╠©enia zasobСw dyskowych, interfejsСw
-sieciowych i innych operacji wej╤cia/wyj╤cia.
+%description -l pl.UTF-8
+Pakiet ten udostд≥pnia polecenia sar i iostat dla systemu Linux podobne
+w dziaе┌aniu do tradycyjnych narzд≥dzi systemu Unix. Polecenia te
+umoе╪liwiajд┘ monitorowanie obciд┘е╪enia zasobцЁw dyskowych, interfejsцЁw
+sieciowych i innych operacji wejе⌡cia/wyjе⌡cia.
 
-%description -l ru
-Этот пакет содержит программы sar и iostat для Linux, похожие на
-традиционные одноименные программы UNIX. Они позволяют осуществлять
-мониторинг дисковой, сетевой и прочей активности системы.
+%description -l ru.UTF-8
+п╜я┌п╬я┌ п©п╟п╨п╣я┌ я│п╬п╢п╣я─п╤п╦я┌ п©я─п╬пЁя─п╟п╪п╪я▀ sar п╦ iostat п╢п╩я▐ Linux, п©п╬я┘п╬п╤п╦п╣ п╫п╟
+я┌я─п╟п╢п╦я├п╦п╬п╫п╫я▀п╣ п╬п╢п╫п╬п╦п╪п╣п╫п╫я▀п╣ п©я─п╬пЁя─п╟п╪п╪я▀ UNIX. п·п╫п╦ п©п╬п╥п╡п╬п╩я▐я▌я┌ п╬я│я┐я┴п╣я│я┌п╡п╩я▐я┌я▄
+п╪п╬п╫п╦я┌п╬я─п╦п╫пЁ п╢п╦я│п╨п╬п╡п╬п╧, я│п╣я┌п╣п╡п╬п╧ п╦ п©я─п╬я┤п╣п╧ п╟п╨я┌п╦п╡п╫п╬я│я┌п╦ я│п╦я│я┌п╣п╪я▀.
 
-%description -l uk
-Цей пакет м╕стить програми sar та iostat для Linux, схож╕ на
-традиц╕йн╕ в╕дпов╕дн╕ програми UNIX. Вони дозволяють зд╕йснювати
-мон╕торинг дисково╖, мережево╖ та ╕ншо╖ активност╕ системи.
+%description -l uk.UTF-8
+п╕п╣п╧ п©п╟п╨п╣я┌ п╪я√я│я┌п╦я┌я▄ п©я─п╬пЁя─п╟п╪п╦ sar я┌п╟ iostat п╢п╩я▐ Linux, я│я┘п╬п╤я√ п╫п╟
+я┌я─п╟п╢п╦я├я√п╧п╫я√ п╡я√п╢п©п╬п╡я√п╢п╫я√ п©я─п╬пЁя─п╟п╪п╦ UNIX. п▓п╬п╫п╦ п╢п╬п╥п╡п╬п╩я▐я▌я┌я▄ п╥п╢я√п╧я│п╫я▌п╡п╟я┌п╦
+п╪п╬п╫я√я┌п╬я─п╦п╫пЁ п╢п╦я│п╨п╬п╡п╬я≈, п╪п╣я─п╣п╤п╣п╡п╬я≈ я┌п╟ я√п╫я┬п╬я≈ п╟п╨я┌п╦п╡п╫п╬я│я┌я√ я│п╦я│я┌п╣п╪п╦.
 
-%description -l zh_CN
-╠╬хМ╪ЧлА╧╘аксцсзLinux╣до╣мЁ╪Юйс╧╓╬ъ, ©ирт╪Юйс╢еел, мЬбГрт╪╟ фДкШ IO
-╣д╩Н╤╞гИ©Ж.
+%description -l zh_CN.UTF-8
+Ф°╛Х╫╞Д╩╤Ф▐░Д╬⌡Д╨├Г■╗Д╨▌LinuxГ └ГЁ╩Г╩÷Г⌡▒Х╖├Е╥╔Е┘╥, Е▐╞Д╩╔Г⌡▒Х╖├Гё│Г⌡≤, Г╫▒Г╩°Д╩╔Е▐┼ Е┘╤Д╩√ IO
+Г └Ф╢╩Е┼╗Ф┐┘Е├╣.
 
 %prep
 %setup -q
