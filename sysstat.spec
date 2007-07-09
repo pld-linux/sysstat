@@ -16,6 +16,7 @@ Source3:	%{name}.sysconfig
 Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	gettext-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -54,7 +55,6 @@ sieciowych i innych operacji wejścia/wyjścia.
 %patch0 -p1
 
 %build
-
 %{__gettextize}
 %{__libtoolize}
 %{__aclocal}
