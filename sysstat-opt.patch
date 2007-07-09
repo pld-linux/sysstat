@@ -1,37 +1,17 @@
---- sysstat-6.1.2/Makefile.orig	2006-04-30 11:00:53.725281750 +0200
-+++ sysstat-6.1.2/Makefile	2006-04-30 11:00:50.133057250 +0200
-@@ -24,10 +24,7 @@
- endif
- DESTDIR = $(RPM_BUILD_ROOT)
- BIN_DIR = $(PREFIX)/bin
--ifndef MAN_DIR
--# Don't use $(PREFIX)/share/man by default: not necessarily in man path!
--MAN_DIR = $(PREFIX)/man
--endif
-+MAN_DIR = $(PREFIX)/share/man
- MAN1_DIR = $(MAN_DIR)/man1
- MAN8_DIR = $(MAN_DIR)/man8
- DOC_DIR = $(PREFIX)/doc/sysstat-$(VERSION)
-@@ -35,8 +32,8 @@
- SYSCONFIG_DIR = /etc/sysconfig
+--- sysstat-7.1.6/Makefile.in_	2007-07-09 21:37:30.325210569 +0000
++++ sysstat-7.1.6/Makefile.in	2007-07-09 21:37:24.336947388 +0000
+@@ -75,14 +75,7 @@
+ CRON_OWNER = @CRON_OWNER@
  
- # Compiler flags
--CFLAGS = -Wall -Wstrict-prototypes -pipe -O2 -fno-strength-reduce
--LFLAGS = -s
-+override CFLAGS += -Wall -Wstrict-prototypes -pipe -fno-strength-reduce
-+override LFLAGS += -s
- SAS_DFLAGS += -DSA_DIR=\"$(SA_DIR)\" -DSADC_PATH=\"$(SADC_PATH)\"
- 
- # NLS (National Language Support)
-@@ -45,11 +42,7 @@
- # The msgfmt command
- MSGFMT = msgfmt
- 
+ MAN_GROUP = @MAN_GROUP@
 -ifndef IGNORE_MAN_GROUP
--MANGRPARG = -g $(MAN_GROUP)
--else
- MANGRPARG =
+-IGNORE_MAN_GROUP = @IGNORE_MAN_GROUP@
 -endif
- 
- # Run-command directories
- ifndef RC_DIR
+-ifeq ($(IGNORE_MAN_GROUP),y)
+ MANGRPARG =
+-else
+-MANGRPARG = -g $(MAN_GROUP)
+-endif
+ ifndef CLEAN_SA_DIR
+ CLEAN_SA_DIR = @CLEAN_SA_DIR@
+ endif

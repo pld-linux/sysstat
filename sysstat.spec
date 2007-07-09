@@ -4,17 +4,19 @@ Summary(ru.UTF-8):	Содержит программы системного мо
 Summary(uk.UTF-8):	Містить команди системного моніторингу sar та iostat
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 Name:		sysstat
-Version:	6.1.2
-Release:	1
+Version:	7.1.6
+Release:	0.1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
-# Source0-md5:	be8ec50b87a4a8f5fa90fd5010611cb5
+# Source0-md5:	7376033a34f8a9286e70a65217985ef7
 Source1:	%{name}.crond
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
 Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
+BuildRequires:	autoconf
+BuildRequires:	libtool
 BuildRequires:	gettext-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
@@ -52,16 +54,12 @@ sieciowych i innych operacji wejścia/wyjścia.
 %patch0 -p1
 
 %build
-echo "%{_prefix}
-%{_prefix}/lib/sa
-/var/log/sa
-n
-y
-n
-y
-7
-`id -gn`
-n" | /bin/sh build/Configure.sh
+
+%{__gettextize}
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%configure
 
 %{__make} \
 	CC="%{__cc}" \
