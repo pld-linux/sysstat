@@ -5,7 +5,7 @@ Summary(uk.UTF-8):	Містить команди системного моніт
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 Name:		sysstat
 Version:	8.0.1
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
