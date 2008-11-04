@@ -2,10 +2,11 @@
 #
 # sysstat	Sysstat system monitoring utility
 #
-# chkconfig:	2345 35 55
+# chkconfig:	2345 35 65
 #
 # description:	Sysstat system monitoring tools (sar,iostat,mpstat)
 #
+# $Id$
 
 # Source function library
 . /etc/rc.d/init.d/functions
