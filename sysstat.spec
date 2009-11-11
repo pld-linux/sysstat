@@ -4,12 +4,12 @@ Summary(ru.UTF-8):	Содержит программы системного мо
 Summary(uk.UTF-8):	Містить команди системного моніторингу sar та iostat
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 Name:		sysstat
-Version:	9.0.3
+Version:	9.0.6
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
-# Source0-md5:	5e62331a0d7757dcc2354c5945102462
+# Source0-md5:	e069daf192d259de905d7f8cdd85dc4e
 Source1:	%{name}.crond
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
@@ -17,8 +17,8 @@ Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool
 BuildRequires:	gettext-devel
+BuildRequires:	libtool
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	crondaemon
@@ -47,8 +47,7 @@ sieciowych i innych operacji wejścia/wyjścia.
 моніторинг дискової, мережевої та іншої активності системи.
 
 %description -l zh_CN.UTF-8
-本软件提供了用于Linux的系统监视工具, 可以监视磁盘, 网络以及 其他 IO
-的活动情况.
+本软件提供了用于Linux的系统监视工具, 可以监视磁盘, 网络以及 其他 IO 的活动情况.
 
 %prep
 %setup -q
