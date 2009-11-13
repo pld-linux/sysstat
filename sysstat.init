@@ -15,35 +15,38 @@
 
 start() {
 	# Check if the service is already running?
-	if [ ! -f /var/lock/subsys/sysstat ]; then
-		msg_starting "system activity data collector"
-		daemon /usr/lib/sa/sadc $SADC_OPTIONS -
-		RETVAL=$?
-		[ "$RETVAL" -eq 0 ] && touch /var/lock/subsys/sysstat
-	else
-		msg_already_running "system activity data collector"
+	if [ -f /var/lock/subsys/sysstat ]; then
+		msg_already_running "System Activity Data Collector"
+		return
 	fi
+
+	msg_starting "System Activity Data Collector"
+	daemon /usr/lib/sa/sadc $SADC_OPTIONS -
+	RETVAL=$?
+	[ "$RETVAL" -eq 0 ] && touch /var/lock/subsys/sysstat
 }
 
 stop() {
-	if [ -f /var/lock/subsys/sysstat ]; then
-		# Stop daemons.
-		msg_stopping "system activity data collector"
-		ok
-		rm -f /var/lock/subsys/sysstat >/dev/null 2>&1
-	else
-		msg_not_running "system activity data collector"
+	if [ ! -f /var/lock/subsys/sysstat ]; then
+		msg_not_running "System Activity Data Collector"
+		return
 	fi
+
+	# Stop daemons.
+	msg_stopping "System Activity Data Collector"
+	ok
+	rm -f /var/lock/subsys/sysstat >/dev/null 2>&1
 }
 
 condrestart() {
-	if [ -f /var/lock/subsys/sysstat ]; then
-		stop
-		start
-	else
-		msg_not_running "system activity data collector"
+	if [ ! -f /var/lock/subsys/sysstat ]; then
+		msg_not_running "System Activity Data Collector"
 		RETVAL=$1
+		return
 	fi
+
+	stop
+	start
 }
 
 RETVAL=0
