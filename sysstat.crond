@@ -1,4 +1,4 @@
-# Please update this crontab with the proper location
+MAILTO=root
 
 # activity reports every 10 minutes everyday.
 0  * * * * root exec /usr/lib/sa/sa1 600 6
