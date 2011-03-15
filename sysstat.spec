@@ -4,12 +4,12 @@ Summary(ru.UTF-8):	Содержит программы системного мо
 Summary(uk.UTF-8):	Містить команди системного моніторингу sar та iostat
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 Name:		sysstat
-Version:	9.0.6.1
+Version:	10.0.0
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
-# Source0-md5:	2f9c5f53480215c11a6489b5c3ce6c39
+# Source0-md5:	557875adaad4dbc0a6873748de6f1ce4
 Source1:	%{name}.crond
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
@@ -92,7 +92,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc CHANGES CREDITS README *.sample TODO FAQ
+%doc CHANGES CREDITS README TODO FAQ
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_prefix}/lib/sa*
 %attr(750,root,root) %dir /var/log/sa
