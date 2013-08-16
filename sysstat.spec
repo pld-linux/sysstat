@@ -4,25 +4,25 @@ Summary(ru.UTF-8):	Содержит программы системного мо
 Summary(uk.UTF-8):	Містить команди системного моніторингу sar та iostat
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 Name:		sysstat
-Version:	10.0.2
+Version:	10.1.6
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
-# Source0-md5:	0dc5c4baf4165658450dd60913aa75bc
+# Source0-md5:	61792b2591e4b3adcb7b979af2330fba
 Source1:	%{name}.crond
 Source2:	%{name}.init
-Source3:	%{name}.sysconfig
 Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	libtool
-BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	rpmbuild(macros) >= 1.671
 Requires(post,preun):	/sbin/chkconfig
 Requires:	crondaemon
 Requires:	rc-scripts
+Requires:	systemd-units >= 38
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -58,24 +58,33 @@ sieciowych i innych operacji wejścia/wyjścia.
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
-%configure
+%configure \
+	history=28 \
+	compressafter=31 \
+	--disable-stripping \
+	--with-systemdsystemunitdir=%{systemdunitdir}
 
-%{__make} \
+%{__sed} -i 's/SADC_OPTIONS=""/SADC_OPTIONS="-L"/' sysstat.sysconfig
+
+%{__make} -j1 \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d,sysconfig},/var/log/sa}
+install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d,sysconfig},/var/log/sa,%{systemdunitdir}}
 
-%{__make} install
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
+install -p sysstat.service $RPM_BUILD_ROOT%{systemdunitdir}
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.d/sysstat
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
-install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/%{name}
+
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}
 
 %find_lang %{name}
-rm -rf $RPM_BUILD_ROOT%{_prefix}/doc/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -83,20 +92,30 @@ rm -rf $RPM_BUILD_ROOT
 %post
 /sbin/chkconfig --add sysstat
 %service sysstat restart
+%systemd_post sysstat.service
 
 %preun
 if [ "$1" = "0" ]; then
 	%service sysstat stop
 	/sbin/chkconfig --del sysstat
 fi
+%systemd_preun sysstat.service
+
+%postun
+%systemd_reload
+
+%triggerpostun -- %{name} < 10.1.6-1
+%systemd_trigger sysstat.service
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc CHANGES CREDITS README TODO FAQ
+%doc CHANGES CREDITS README FAQ
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_prefix}/lib/sa*
+%dir %{_libdir}/sa
+%attr(755,root,root) %{_libdir}/sa/*
 %attr(750,root,root) %dir /var/log/sa
 %attr(754,root,root) /etc/rc.d/init.d/*
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/cron.d/*
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/*
+%{systemdunitdir}/sysstat.service
 %{_mandir}/man*/*
