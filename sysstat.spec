@@ -5,12 +5,11 @@ Summary(uk.UTF-8):	Містить команди системного моніт
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 Name:		sysstat
 Version:	10.1.6
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
 # Source0-md5:	61792b2591e4b3adcb7b979af2330fba
-Source1:	%{name}.crond
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
@@ -61,6 +60,9 @@ sieciowych i innych operacji wejścia/wyjścia.
 %configure \
 	history=28 \
 	compressafter=31 \
+	cron_owner=root \
+	cron_interval=10 \
+	--enable-install-cron \
 	--disable-stripping \
 	--with-systemdsystemunitdir=%{systemdunitdir}
 
@@ -75,11 +77,13 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d,sysconfig},/var/log/sa,%{systemdunitdir}}
 
 %{__make} install \
+	CHOWN=/bin/true \
+	SYSTEMCTL=/bin/true \
+	SYSTEMD_UNIT_DIR=$RPM_BUILD_ROOT%{systemdunitdir} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -p sysstat.service $RPM_BUILD_ROOT%{systemdunitdir}
 
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.d/sysstat
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
 
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}
