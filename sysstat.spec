@@ -13,10 +13,10 @@ Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
 BuildRequires:	gettext-devel
-BuildRequires:	libtool
+BuildRequires:	lm_sensors-devel
 BuildRequires:	rpmbuild(macros) >= 1.671
 Requires(post,preun):	/sbin/chkconfig
 Requires:	crondaemon
@@ -53,8 +53,6 @@ sieciowych i innych operacji wejścia/wyjścia.
 %patch0 -p1
 
 %build
-%{__gettextize}
-%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %configure \
@@ -114,12 +112,29 @@ fi
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc CHANGES CREDITS README FAQ
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/cifsiostat
+%attr(755,root,root) %{_bindir}/iostat
+%attr(755,root,root) %{_bindir}/mpstat
+%attr(755,root,root) %{_bindir}/nfsiostat
+%attr(755,root,root) %{_bindir}/pidstat
+%attr(755,root,root) %{_bindir}/sadf
+%attr(755,root,root) %{_bindir}/sar
 %dir %{_libdir}/sa
-%attr(755,root,root) %{_libdir}/sa/*
+%attr(755,root,root) %{_libdir}/sa/sa*
 %attr(750,root,root) %dir /var/log/sa
-%attr(754,root,root) /etc/rc.d/init.d/*
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/cron.d/*
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/*
+%attr(754,root,root) /etc/rc.d/init.d/sysstat
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/cron.d/sysstat
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/sysstat
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/sysstat.ioconf
 %{systemdunitdir}/sysstat.service
-%{_mandir}/man*/*
+%{_mandir}/man1/cifsiostat.1*
+%{_mandir}/man1/iostat.1*
+%{_mandir}/man1/mpstat.1*
+%{_mandir}/man1/nfsiostat.1*
+%{_mandir}/man1/pidstat.1*
+%{_mandir}/man1/sadf.1*
+%{_mandir}/man1/sar.1*
+%{_mandir}/man5/sysstat.5*
+%{_mandir}/man8/sa1.8*
+%{_mandir}/man8/sa2.8*
+%{_mandir}/man8/sadc.8*
