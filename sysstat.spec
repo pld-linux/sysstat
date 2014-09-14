@@ -1,3 +1,6 @@
+# TODO:
+# - solve conflict (obsoletes?):
+#   file /usr/bin/iostat from install of sysstat-10.1.6-3.i686 conflicts with file from package iostat-2.2-1.i686
 Summary:	The sar and iostat system monitoring commands
 Summary(pl.UTF-8):	Polecenia sar i iostat dla systemu Linux
 Summary(ru.UTF-8):	Содержит программы системного мониторинга sar и iostat
