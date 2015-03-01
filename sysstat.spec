@@ -8,7 +8,7 @@ Summary(uk.UTF-8):	Містить команди системного моніт
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 Name:		sysstat
 Version:	10.1.6
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
@@ -63,6 +63,7 @@ sieciowych i innych operacji wejścia/wyjścia.
 	compressafter=31 \
 	cron_owner=root \
 	cron_interval=10 \
+	sa_lib_dir=%{_libdir}/sa \
 	--enable-install-cron \
 	--disable-stripping \
 	--with-systemdsystemunitdir=%{systemdunitdir}
