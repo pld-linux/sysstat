@@ -1,0 +1,30 @@
+--- sysstat-11.0.8/Makefile.in	2015-10-28 12:55:45.551618897 +0200
++++ sysstat-11.0.8/Makefile.in	2015-10-28 12:57:20.463217311 +0200
+@@ -364,7 +364,8 @@
+ 	$(CHOWN) $(CRON_OWNER) $(DESTDIR)$(SA_DIR)
+ ifdef SYSTEMD_UNIT_DIR
+ 	mkdir -p $(DESTDIR)$(SYSTEMD_UNIT_DIR)
+-else
++endif
++ifeq ($(INSTALL_CRON),y)
+ 	if [ -d /etc/cron.d ]; then \
+ 		mkdir -p $(DESTDIR)/etc/cron.d; \
+ 	elif [ -d /etc/cron.hourly -a -d /etc/cron.daily ]; then \
+@@ -375,15 +376,13 @@
+ 	elif [ -d $(RC_DIR) ]; then \
+ 		mkdir -p $(DESTDIR)$(RC_DIR); \
+ 	fi
+-endif
+-	if [ -z "$(SYSTEMD_UNIT_DIR)" -o ! -d "$(DESTDIR)$(SYSTEMD_UNIT_DIR)" ]; then \
+ 		if [ -d $(DESTDIR)/etc/cron.d ]; then \
+ 			$(INSTALL_DATA) cron/sysstat.crond $(DESTDIR)/etc/cron.d/sysstat; \
+ 		elif [ -d $(DESTDIR)/etc/cron.hourly -a -d $(DESTDIR)/etc/cron.daily ]; then \
+ 			$(INSTALL_BIN) cron/sysstat.cron.hourly $(DESTDIR)/etc/cron.hourly/sysstat; \
+ 			$(INSTALL_BIN) cron/sysstat.cron.daily $(DESTDIR)/etc/cron.daily/sysstat; \
+-		fi \
+-	fi
++		fi
++endif
+ ifeq ($(COPY_ONLY),n)
+ 	if [ \( -z "$(SYSTEMD_UNIT_DIR)" -o ! -d "$(DESTDIR)$(SYSTEMD_UNIT_DIR)" \) -a ! -d $(DESTDIR)/etc/cron.d ]; then \
+ 		if [ ! -d $(DESTDIR)/etc/cron.hourly -o ! -d $(DESTDIR)/etc/cron.daily ]; then \

@@ -18,6 +18,7 @@ Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
 # Source0-md5:	9a60d786c928b4006f1445c71eeb0e3d
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
+Patch1:		install.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
@@ -59,6 +60,7 @@ sieciowych i innych operacji wejścia/wyjścia.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__aclocal}
