@@ -10,7 +10,7 @@ Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # Sysstat 11.0.x (stable version).
 Name:		sysstat
 Version:	11.0.8
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
@@ -33,6 +33,8 @@ Requires:	rc-scripts
 Requires:	systemd-units >= 38
 Obsoletes:	iostat
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_libexecdir	%{_prefix}/lib/sa
 
 %description
 This package provides the sar and iostat commands for the Linux
@@ -71,7 +73,7 @@ sieciowych i innych operacji wejścia/wyjścia.
 	compressafter=31 \
 	cron_owner=root \
 	cron_interval=10 \
-	sa_lib_dir=%{_libdir}/sa \
+	sa_lib_dir=%{_libexecdir} \
 	--enable-install-cron \
 	--disable-stripping \
 	--with-systemdsystemunitdir=%{systemdunitdir}
@@ -93,8 +95,6 @@ install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d,sysconfig},/var/log/sa,%{sys
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
-%{__sed} i -e 's|/usr/lib/sa|%{_libdir}/sa|g' $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
-
 cp -p %{SOURCE3} $RPM_BUILD_ROOT/etc/cron.d/%{name}
 
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}
@@ -132,9 +132,10 @@ fi
 %attr(755,root,root) %{_bindir}/pidstat
 %attr(755,root,root) %{_bindir}/sadf
 %attr(755,root,root) %{_bindir}/sar
-%dir %{_libdir}/sa
-%attr(755,root,root) %{_libdir}/sa/sa*
-%attr(750,root,root) %dir /var/log/sa
+%dir %{_libexecdir}
+%attr(755,root,root) %{_libexecdir}/sa1
+%attr(755,root,root) %{_libexecdir}/sa2
+%attr(755,root,root) %{_libexecdir}/sadc
 %attr(754,root,root) /etc/rc.d/init.d/sysstat
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/cron.d/sysstat
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/sysstat
@@ -155,3 +156,4 @@ fi
 %{_mandir}/man8/sa1.8*
 %{_mandir}/man8/sa2.8*
 %{_mandir}/man8/sadc.8*
+%attr(750,root,root) %dir /var/log/sa

@@ -6,7 +6,6 @@
 #
 # description:	Sysstat system monitoring tools (sar,iostat,mpstat)
 #
-# $Id$
 
 # Source function library
 . /etc/rc.d/init.d/functions
