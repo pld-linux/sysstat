@@ -10,12 +10,13 @@ Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # Sysstat 11.0.x (stable version).
 Name:		sysstat
 Version:	11.0.8
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
 # Source0-md5:	9a60d786c928b4006f1445c71eeb0e3d
 Source2:	%{name}.init
+Source3:	crontab
 Patch0:		%{name}-opt.patch
 Patch1:		install.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
@@ -91,7 +92,10 @@ install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d,sysconfig},/var/log/sa,%{sys
 	SYSTEMD_UNIT_DIR=%{systemdunitdir} \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__sed} -e 's|/usr/lib/sa|%{_libdir}/sa|g' %{SOURCE2} >$RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
+install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
+%{__sed} i -e 's|/usr/lib/sa|%{_libdir}/sa|g' $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
+
+cp -p %{SOURCE3} $RPM_BUILD_ROOT/etc/cron.d/%{name}
 
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}
 
