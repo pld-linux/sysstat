@@ -1,6 +1,7 @@
 # TODO:
 # - solve conflict (obsoletes?):
 #   file /usr/bin/iostat from install of sysstat-10.1.6-3.i686 conflicts with file from package iostat-2.2-1.i686
+# - if running at systemd, cron job is not neccessary (it has the timers)
 Summary:	The sar and iostat system monitoring commands
 Summary(pl.UTF-8):	Polecenia sar i iostat dla systemu Linux
 Summary(ru.UTF-8):	Содержит программы системного мониторинга sar и iostat
@@ -88,10 +89,8 @@ install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d,sysconfig},/var/log/sa,%{sys
 %{__make} install \
 	CHOWN=/bin/true \
 	SYSTEMCTL=/bin/true \
-	SYSTEMD_UNIT_DIR=$RPM_BUILD_ROOT%{systemdunitdir} \
+	SYSTEMD_UNIT_DIR=%{systemdunitdir} \
 	DESTDIR=$RPM_BUILD_ROOT
-
-install -p sysstat.service $RPM_BUILD_ROOT%{systemdunitdir}
 
 %{__sed} -e 's|/usr/lib/sa|%{_libdir}/sa|g' %{SOURCE2} >$RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
 
@@ -138,6 +137,10 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/sysstat
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/sysstat.ioconf
 %{systemdunitdir}/sysstat.service
+%{systemdunitdir}/sysstat-collect.service
+%{systemdunitdir}/sysstat-collect.timer
+%{systemdunitdir}/sysstat-summary.service
+%{systemdunitdir}/sysstat-summary.timer
 %{_mandir}/man1/cifsiostat.1*
 %{_mandir}/man1/iostat.1*
 %{_mandir}/man1/mpstat.1*
