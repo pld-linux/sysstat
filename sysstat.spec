@@ -1,6 +1,4 @@
 # TODO:
-# - solve conflict (obsoletes?):
-#   file /usr/bin/iostat from install of sysstat-10.1.6-3.i686 conflicts with file from package iostat-2.2-1.i686
 # - if running at systemd, cron job is not neccessary (it has the timers)
 Summary:	The sar and iostat system monitoring commands
 Summary(pl.UTF-8):	Polecenia sar i iostat dla systemu Linux
@@ -32,6 +30,7 @@ Requires(post,preun):	/sbin/chkconfig
 Requires:	crondaemon
 Requires:	rc-scripts
 Requires:	systemd-units >= 38
+Obsoletes:	iostat
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
