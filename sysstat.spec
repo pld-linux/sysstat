@@ -6,13 +6,16 @@ Summary(pl.UTF-8):	Polecenia sar i iostat dla systemu Linux
 Summary(ru.UTF-8):	Содержит программы системного мониторинга sar и iostat
 Summary(uk.UTF-8):	Містить команди системного моніторингу sar та iostat
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
+# use stable versions
+# Sysstat 11.1.x (development version).
+# Sysstat 11.0.x (stable version).
 Name:		sysstat
-Version:	10.1.6
-Release:	5
+Version:	11.0.8
+Release:	1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://perso.wanadoo.fr/sebastien.godard/%{name}-%{version}.tar.bz2
-# Source0-md5:	61792b2591e4b3adcb7b979af2330fba
+Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
+# Source0-md5:	9a60d786c928b4006f1445c71eeb0e3d
 Source2:	%{name}.init
 Patch0:		%{name}-opt.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
@@ -21,6 +24,8 @@ BuildRequires:	automake
 BuildRequires:	gettext-tools
 BuildRequires:	lm_sensors-devel
 BuildRequires:	rpmbuild(macros) >= 1.671
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 Requires(post,preun):	/sbin/chkconfig
 Requires:	crondaemon
 Requires:	rc-scripts
@@ -119,7 +124,7 @@ fi
 %attr(755,root,root) %{_bindir}/cifsiostat
 %attr(755,root,root) %{_bindir}/iostat
 %attr(755,root,root) %{_bindir}/mpstat
-%attr(755,root,root) %{_bindir}/nfsiostat
+%attr(755,root,root) %{_bindir}/nfsiostat-sysstat
 %attr(755,root,root) %{_bindir}/pidstat
 %attr(755,root,root) %{_bindir}/sadf
 %attr(755,root,root) %{_bindir}/sar
@@ -134,7 +139,7 @@ fi
 %{_mandir}/man1/cifsiostat.1*
 %{_mandir}/man1/iostat.1*
 %{_mandir}/man1/mpstat.1*
-%{_mandir}/man1/nfsiostat.1*
+%{_mandir}/man1/nfsiostat-sysstat.1*
 %{_mandir}/man1/pidstat.1*
 %{_mandir}/man1/sadf.1*
 %{_mandir}/man1/sar.1*
