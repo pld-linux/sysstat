@@ -1,5 +1,21 @@
 # TODO:
 # - if running at systemd, cron job is not neccessary (it has the timers)
+# - make upgrade cleaner than it is now. after upgrade sysstat does not work until data file is changed for next day:
+# I sysstat-11.0.8-3.x86_64
+# R sysstat-10.1.6-5.x86_64
+# # sar -q
+# Invalid system activity file: /var/log/sa/sa13
+# File created by sar/sadc from sysstat version 10.1.6
+# Current sysstat version can no longer read the format of this file (0x2171)
+#
+# # service sysstat restart
+# System Activity Data Collector service is not running.
+# Starting System Activity Data Collector service....................[ FAIL ]
+# sensors_init: Kernel interface error
+# Invalid system activity file: /var/log/sa/sa13
+# File created by sar/sadc from sysstat version 10.1.6
+# Current sysstat version can no longer read the format of this file (0x2171)
+
 Summary:	The sar and iostat system monitoring commands
 Summary(pl.UTF-8):	Polecenia sar i iostat dla systemu Linux
 Summary(ru.UTF-8):	Содержит программы системного мониторинга sar и iostat
