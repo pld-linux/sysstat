@@ -15,7 +15,10 @@
 # Invalid system activity file: /var/log/sa/sa13
 # File created by sar/sadc from sysstat version 10.1.6
 # Current sysstat version can no longer read the format of this file (0x2171)
-
+#
+# So add automatic conversion using sadf (see howto on project page)
+# after update to version >= 11.1
+#
 Summary:	The sar and iostat system monitoring commands
 Summary(pl.UTF-8):	Polecenia sar i iostat dla systemu Linux
 Summary(ru.UTF-8):	Содержит программы системного мониторинга sar и iostat
