@@ -19,24 +19,24 @@
 # So add automatic conversion using sadf (see howto on project page)
 # after update to version >= 11.1
 #
+# Fix or remove  install.patch (seems systemd files are installed now)
 Summary:	The sar and iostat system monitoring commands
 Summary(pl.UTF-8):	Polecenia sar i iostat dla systemu Linux
 Summary(ru.UTF-8):	Содержит программы системного мониторинга sar и iostat
 Summary(uk.UTF-8):	Містить команди системного моніторингу sar та iostat
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # use stable versions
-# Sysstat 11.1.x (development version).
-# Sysstat 11.0.x (stable version).
+# Sysstat 11.3.x (development version).
+# Sysstat 11.2.x (stable version).
 Name:		sysstat
-Version:	11.0.8
-Release:	3
+Version:	11.2.0
+Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
-# Source0-md5:	9a60d786c928b4006f1445c71eeb0e3d
+# Source0-md5:	e8b615775ad98780e3f0675b91eddb19
 Source2:	%{name}.init
 Source3:	crontab
-Patch0:		%{name}-opt.patch
 Patch1:		install.patch
 URL:		http://perso.wanadoo.fr/sebastien.godard/
 BuildRequires:	autoconf >= 2.53
@@ -81,7 +81,6 @@ sieciowych i innych operacji wejścia/wyjścia.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 
 %build
@@ -101,7 +100,7 @@ sieciowych i innych operacji wejścia/wyjścia.
 
 %{__make} -j1 \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags}"
+	CFLAGS="%{rpmcflags}" \
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -111,7 +110,9 @@ install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d,sysconfig},/var/log/sa,%{sys
 	CHOWN=/bin/true \
 	SYSTEMCTL=/bin/true \
 	SYSTEMD_UNIT_DIR=%{systemdunitdir} \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	IGNORE_MAN_GROUP=y \
+	IGNORE_FILE_ATTRIBUTES=y
 
 install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/sysstat
 cp -p %{SOURCE3} $RPM_BUILD_ROOT/etc/cron.d/%{name}
@@ -147,7 +148,7 @@ fi
 %attr(755,root,root) %{_bindir}/cifsiostat
 %attr(755,root,root) %{_bindir}/iostat
 %attr(755,root,root) %{_bindir}/mpstat
-%attr(755,root,root) %{_bindir}/nfsiostat-sysstat
+%attr(755,root,root) %{_bindir}/tapestat
 %attr(755,root,root) %{_bindir}/pidstat
 %attr(755,root,root) %{_bindir}/sadf
 %attr(755,root,root) %{_bindir}/sar
@@ -167,7 +168,7 @@ fi
 %{_mandir}/man1/cifsiostat.1*
 %{_mandir}/man1/iostat.1*
 %{_mandir}/man1/mpstat.1*
-%{_mandir}/man1/nfsiostat-sysstat.1*
+%{_mandir}/man1/tapestat.1*
 %{_mandir}/man1/pidstat.1*
 %{_mandir}/man1/sadf.1*
 %{_mandir}/man1/sar.1*
