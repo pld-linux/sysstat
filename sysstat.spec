@@ -128,10 +128,13 @@ fi
 for log in /var/log/sa/sa[0-9]*; do
 	if (LC_ALL=C %{_bindir}/sadf -C "$log" 2>&1 | grep -q "Current sysstat version cannot read the format of this file"); then
 		echo "Converting file $log to current format: "
-		%{_bindir}/sadf -c "$log" > "$log.migrate"
-		chown --reference "$log" "$log.migrate"
-		chmod --reference "$log" "$log.migrate"
-		mv "$log.migrate" "$log"
+		if (%{_bindir}/sadf -c "$log" > "$log.migrate"); then
+			chown --reference "$log" "$log.migrate"
+			chmod --reference "$log" "$log.migrate"
+			mv "$log.migrate" "$log"
+		else
+			echo "$log MIGRATION FAILED." >&2
+		fi
 	fi
 done
 
