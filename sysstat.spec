@@ -1,23 +1,5 @@
 # TODO:
 # - if running at systemd, cron job is not neccessary (it has the timers)
-# - make upgrade cleaner than it is now. after upgrade sysstat does not work until data file is changed for next day:
-# I sysstat-11.0.8-3.x86_64
-# R sysstat-10.1.6-5.x86_64
-# # sar -q
-# Invalid system activity file: /var/log/sa/sa13
-# File created by sar/sadc from sysstat version 10.1.6
-# Current sysstat version can no longer read the format of this file (0x2171)
-#
-# # service sysstat restart
-# System Activity Data Collector service is not running.
-# Starting System Activity Data Collector service....................[ FAIL ]
-# sensors_init: Kernel interface error
-# Invalid system activity file: /var/log/sa/sa13
-# File created by sar/sadc from sysstat version 10.1.6
-# Current sysstat version can no longer read the format of this file (0x2171)
-#
-# So add automatic conversion using sadf (see howto on project page)
-# after update to version >= 11.1
 #
 # Fix or remove  install.patch (seems systemd files are installed now)
 Summary:	The sar and iostat system monitoring commands
@@ -30,7 +12,7 @@ Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # Sysstat 11.2.x (stable version).
 Name:		sysstat
 Version:	11.2.0
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
@@ -141,6 +123,17 @@ fi
 
 %triggerpostun -- %{name} < 10.1.6-1
 %systemd_trigger sysstat.service
+
+%triggerpostun -- %{name} < 11.2.0-2
+for log in /var/log/sa/sa[0-9]*; do
+	if (LC_ALL=C %{_bindir}/sadf -C "$log" 2>&1 | grep -q "Current sysstat version cannot read the format of this file"); then
+		echo "Converting file $log to current format: "
+		%{_bindir}/sadf -c "$log" > "$log.migrate"
+		chown --reference "$log" "$log.migrate"
+		chmod --reference "$log" "$log.migrate"
+		mv "$log.migrate" "$log"
+	fi
+done
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
