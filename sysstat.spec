@@ -12,7 +12,7 @@ Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # Sysstat 11.2.x (stable version).
 Name:		sysstat
 Version:	11.2.0
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
@@ -125,6 +125,7 @@ fi
 %systemd_trigger sysstat.service
 
 %triggerpostun -- %{name} < 11.2.0-2
+C=0
 for log in /var/log/sa/sa[0-9]*; do
 	if (LC_ALL=C %{_bindir}/sadf -C "$log" 2>&1 | grep -q "Current sysstat version cannot read the format of this file"); then
 		echo "Converting file $log to current format: "
@@ -132,11 +133,16 @@ for log in /var/log/sa/sa[0-9]*; do
 			chown --reference "$log" "$log.migrate"
 			chmod --reference "$log" "$log.migrate"
 			mv "$log.migrate" "$log"
+			C=1
 		else
 			echo "$log MIGRATION FAILED." >&2
 		fi
 	fi
 done
+if [ "$C" -eq 1 ]; then
+	%service sysstat restart
+	%systemd_post sysstat.service
+fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
