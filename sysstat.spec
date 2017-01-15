@@ -1,5 +1,3 @@
-# TODO:
-# - if running at systemd, cron job is not neccessary (it has the timers)
 #
 # Fix or remove  install.patch (seems systemd files are installed now)
 Summary:	The sar and iostat system monitoring commands
