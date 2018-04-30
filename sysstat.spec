@@ -6,16 +6,16 @@ Summary(ru.UTF-8):	Содержит программы системного мо
 Summary(uk.UTF-8):	Містить команди системного моніторингу sar та iostat
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # use stable versions
-# Sysstat 11.5.x (development version).
-# Sysstat 11.4.x (stable version).
-# Sysstat 11.2.x (stable version).
+# Sysstat 11.7.x released (development version).
+# Sysstat 11.6.x released (stable version).
+# Sysstat 11.4.x released (stable version).
 Name:		sysstat
-Version:	11.4.3
-Release:	3
+Version:	11.6.3
+Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
-# Source0-md5:	76e449bb83a25d95355694338b5ace70
+# Source0-md5:	066968aad1f0861d572170943a389c3f
 Source2:	%{name}.init
 Source3:	crontab
 Patch1:		install.patch
@@ -147,7 +147,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc CHANGES CREDITS README.md FAQ
+%doc CHANGES CREDITS README.md FAQ.md
 %attr(755,root,root) %{_bindir}/cifsiostat
 %attr(755,root,root) %{_bindir}/iostat
 %attr(755,root,root) %{_bindir}/mpstat
