@@ -3,8 +3,8 @@
 # 8am-7pm activity reports every 20 minutes during weekdays.
 #0 8-18 * * 1-5 root /bin/systemd_booted || /usr/lib/sa/sa1 1200 3
 
-# activity reports every 2 minutes everyday.
-*/2 * * * * root /bin/systemd_booted || /usr/lib/sa/sa1 1 1
+# activity reports every 1 minutes everyday.
+*/1 * * * * root /bin/systemd_booted || /usr/lib/sa/sa1 1 1
 
 # Activity reports every an hour on Saturday and Sunday.
 #0 * * * 0,6 root /bin/systemd_booted || /usr/lib/sa/sa1

@@ -10,7 +10,7 @@ Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # Sysstat 12.0.x released (stable version).
 Name:		sysstat
 Version:	12.0.2
-Release:	5
+Release:	6
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
@@ -71,7 +71,7 @@ sieciowych i innych operacji wejścia/wyjścia.
 	history=28 \
 	compressafter=31 \
 	cron_owner=root \
-	cron_interval=2 \
+	cron_interval=1 \
 	sadc_options='-L -S XDISK' \
 	sa_lib_dir=%{_libexecdir} \
 	ZIP=%{_bindir}/xz \
