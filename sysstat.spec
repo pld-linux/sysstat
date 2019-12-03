@@ -10,7 +10,7 @@ Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # Sysstat 12.2.x released (stable version).
 Name:		sysstat
 Version:	12.2.0
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
@@ -125,7 +125,7 @@ fi
 %triggerpostun -- %{name} < 10.1.6-1
 %systemd_trigger sysstat.service
 
-%triggerpostun -- %{name} < 11.7.1-1
+%triggerpostun -- %{name} < 12.2.0-2
 C=0
 for log in /var/log/sa/sa[0-9]*; do
 	if (LC_ALL=C %{_bindir}/sadf -C "$log" 2>&1 | grep -q "Current sysstat version cannot read the format of this file"); then
