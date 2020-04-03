@@ -9,12 +9,12 @@ Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # Sysstat 12.3.x released (development version).
 # Sysstat 12.2.x released (stable version).
 Name:		sysstat
-Version:	12.2.0
-Release:	3
+Version:	12.2.1
+Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
-# Source0-md5:	7deffb18e7f32a0b74ab81f1f75de9ee
+# Source0-md5:	9dfff5fac24e35bd92fb7896debf2ffb
 Source2:	%{name}.init
 Source3:	crontab
 Patch1:		install.patch
