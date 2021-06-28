@@ -76,6 +76,7 @@ sieciowych i innych operacji wejścia/wyjścia.
 	sa_lib_dir=%{_libexecdir} \
 	ZIP=%{_bindir}/xz \
 	--enable-install-cron \
+	--disable-compress-manpg \
 	--disable-stripping \
 	--with-systemdsystemunitdir=%{systemdunitdir}
 
