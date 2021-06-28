@@ -6,15 +6,15 @@ Summary(ru.UTF-8):	Содержит программы системного мо
 Summary(uk.UTF-8):	Містить команди системного моніторингу sar та iostat
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # use stable versions
-# Sysstat 12.3.x released (development version).
-# Sysstat 12.2.x released (stable version).
+# Sysstat 12.?.x released (development version).
+# Sysstat 12.5.x released (stable version).
 Name:		sysstat
-Version:	12.2.1
+Version:	12.5.4
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
-# Source0-md5:	9dfff5fac24e35bd92fb7896debf2ffb
+# Source0-md5:	697890a0fe72be4afe1dcdfff802bde1
 Source2:	%{name}.init
 Source3:	crontab
 Patch1:		install.patch
@@ -168,6 +168,7 @@ fi
 %{systemdunitdir}/sysstat-collect.timer
 %{systemdunitdir}/sysstat-summary.service
 %{systemdunitdir}/sysstat-summary.timer
+%{systemdunitdir}-sleep/sysstat.sleep
 %{_mandir}/man1/cifsiostat.1*
 %{_mandir}/man1/iostat.1*
 %{_mandir}/man1/mpstat.1*
