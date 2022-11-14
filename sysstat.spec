@@ -7,14 +7,14 @@ Summary(uk.UTF-8):	Містить команди системного моніт
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # use stable versions
 # Sysstat 12.?.x released (development version).
-# Sysstat 12.5.x released (stable version).
+# Sysstat 12.6.x released (stable version).
 Name:		sysstat
-Version:	12.5.4
+Version:	12.6.1
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://pagesperso-orange.fr/sebastien.godard/%{name}-%{version}.tar.xz
-# Source0-md5:	697890a0fe72be4afe1dcdfff802bde1
+# Source0-md5:	c8d6a6799c0851497fed0fec89f26eb8
 Source2:	%{name}.init
 Source3:	crontab
 Patch1:		install.patch
@@ -123,10 +123,10 @@ fi
 %postun
 %systemd_reload
 
-%triggerpostun -- %{name} < 10.1.6-1
-%systemd_trigger sysstat.service
-
 %triggerpostun -- %{name} < 12.2.0-2
+# < 10.1.6-1
+%systemd_trigger sysstat.service
+# < 12.2.0-2
 C=0
 for log in /var/log/sa/sa[0-9]*; do
 	if (LC_ALL=C %{_bindir}/sadf -C "$log" 2>&1 | grep -q "Current sysstat version cannot read the format of this file"); then
