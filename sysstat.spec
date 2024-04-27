@@ -1,3 +1,4 @@
+%bcond_without	systemd	# systemd
 #
 # Fix or remove  install.patch (seems systemd files are installed now)
 Summary:	The sar and iostat system monitoring commands
@@ -164,12 +165,14 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/cron.d/sysstat
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/sysstat
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/sysstat.ioconf
+%if %{with systemd}
 %{systemdunitdir}/sysstat.service
 %{systemdunitdir}/sysstat-collect.service
 %{systemdunitdir}/sysstat-collect.timer
 %{systemdunitdir}/sysstat-summary.service
 %{systemdunitdir}/sysstat-summary.timer
 %{systemdunitdir}-sleep/sysstat.sleep
+%endif
 %{_mandir}/man1/cifsiostat.1*
 %{_mandir}/man1/iostat.1*
 %{_mandir}/man1/mpstat.1*
