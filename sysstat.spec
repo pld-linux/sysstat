@@ -63,7 +63,7 @@ sieciowych i innych operacji wejścia/wyjścia.
 
 %prep
 %setup -q
-%patch1 -p1
+%patch -P1 -p1
 
 %build
 %{__aclocal}
