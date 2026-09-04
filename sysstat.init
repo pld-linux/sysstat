@@ -20,7 +20,10 @@ start() {
 	fi
 
 	msg_starting "System Activity Data Collector"
-	daemon /usr/lib/sa/sadc $SADC_OPTIONS -
+	# sa1 passes sadc -F. A data file written by a different sysstat version
+	# cannot be appended to (activity struct layout is version-coupled), and
+	# without -F sadc refuses to start instead of rotating the file.
+	daemon /usr/lib/sa/sa1 --boot
 	RETVAL=$?
 	[ "$RETVAL" -eq 0 ] && touch /var/lock/subsys/sysstat
 }

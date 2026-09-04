@@ -1,38 +1,36 @@
+%bcond_without	pcp	# PCP archive output in sadf
 %bcond_without	systemd	# systemd
-#
-# Fix or remove  install.patch (seems systemd files are installed now)
 Summary:	The sar and iostat system monitoring commands
 Summary(pl.UTF-8):	Polecenia sar i iostat dla systemu Linux
 Summary(ru.UTF-8):	Содержит программы системного мониторинга sar и iostat
 Summary(uk.UTF-8):	Містить команди системного моніторингу sar та iostat
 Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
-# use stable versions
-# Sysstat 12.?.x released (development version).
-# Sysstat 12.6.x released (stable version).
+# use stable versions: an even minor number (12.6.x, 12.8.x) is stable,
+# an odd one (12.7.x) is the development series
 Name:		sysstat
-Version:	12.7.9
+Version:	12.8.0
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://github.com/sysstat/sysstat/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	5949fbec8e233960d31f4d559f4627b0
+# Source0-md5:	653ce9e613a0a60c8bb1e0d739dc58ca
 Source2:	%{name}.init
 Source3:	crontab
-Patch1:		install.patch
 URL:		https://sysstat.github.io/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
 BuildRequires:	gettext-tools
 BuildRequires:	lm_sensors-devel
+%{?with_pcp:BuildRequires:	pcp-devel}
 BuildRequires:	rpmbuild(macros) >= 1.671
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires(post,preun):	/sbin/chkconfig
 Requires:	cronjobs
 Requires:	rc-scripts
-Requires:	systemd-units >= 38
+%{?with_systemd:Requires:	systemd-units >= 38}
 Requires:	xz
-Obsoletes:	iostat
+Obsoletes:	iostat < 2.2-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_libexecdir	%{_prefix}/lib/sa
@@ -63,7 +61,6 @@ sieciowych i innych operacji wejścia/wyjścia.
 
 %prep
 %setup -q
-%patch -P1 -p1
 
 %build
 %{__aclocal}
@@ -72,16 +69,19 @@ sieciowych i innych operacji wejścia/wyjścia.
 	history=28 \
 	compressafter=31 \
 	cron_owner=root \
-	cron_interval=1 \
+	collect_interval=1 \
 	sadc_options='-L -S XDISK' \
 	sa_lib_dir=%{_libexecdir} \
 	ZIP=%{_bindir}/xz \
-	--enable-install-cron \
+	%{!?with_pcp:--disable-pcp} \
 	--disable-compress-manpg \
 	--disable-stripping \
+%if %{with systemd}
 	--with-systemdsystemunitdir=%{systemdunitdir}
-
-%{__sed} -i 's/SADC_OPTIONS=""/SADC_OPTIONS="-L -S XDISK"/' sysstat.sysconfig
+%else
+	--without-systemdsystemunitdir \
+	--without-systemdsleepdir
+%endif
 
 %{__make} -j1 \
 	CC="%{__cc}" \
@@ -89,12 +89,18 @@ sieciowych i innych operacji wejścia/wyjścia.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d,sysconfig},/var/log/sa,%{systemdunitdir}}
+install -d $RPM_BUILD_ROOT{/etc/{cron.d,rc.d/init.d,sysconfig},/var/log/sa}
+%if %{with systemd}
+install -d $RPM_BUILD_ROOT%{systemdunitdir}
+%endif
 
+# CHKCONFIG: without systemd units the install target reaches its SysV branch,
+# which runs chkconfig --add against the build host
 %{__make} install \
 	CHOWN=/bin/true \
+	CHKCONFIG=/bin/true \
 	SYSTEMCTL=/bin/true \
-	SYSTEMD_UNIT_DIR=%{systemdunitdir} \
+	%{?with_systemd:SYSTEMD_UNIT_DIR=%{systemdunitdir}} \
 	DESTDIR=$RPM_BUILD_ROOT \
 	IGNORE_MAN_GROUP=y \
 	IGNORE_FILE_ATTRIBUTES=y
@@ -124,28 +130,8 @@ fi
 %postun
 %systemd_reload
 
-%triggerpostun -- %{name} < %{version}-%{release}
-# < 10.1.6-1
+%triggerpostun -- %{name} < 10.1.6-1
 %systemd_trigger sysstat.service
-# < 12.2.0-2
-C=0
-for log in /var/log/sa/sa[0-9]*; do
-	if (LC_ALL=C %{_bindir}/sadf -C "$log" 2>&1 | grep -q "Current sysstat version cannot read the format of this file"); then
-		echo "Converting file $log to current format: "
-		if (%{_bindir}/sadf -c "$log" > "$log.migrate"); then
-			chown --reference "$log" "$log.migrate"
-			chmod --reference "$log" "$log.migrate"
-			mv "$log.migrate" "$log"
-			C=1
-		else
-			echo "$log MIGRATION FAILED." >&2
-		fi
-	fi
-done
-if [ "$C" -eq 1 ]; then
-	%service sysstat restart
-	%systemd_post sysstat.service
-fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -169,6 +155,8 @@ fi
 %{systemdunitdir}/sysstat.service
 %{systemdunitdir}/sysstat-collect.service
 %{systemdunitdir}/sysstat-collect.timer
+%{systemdunitdir}/sysstat-rotate.service
+%{systemdunitdir}/sysstat-rotate.timer
 %{systemdunitdir}/sysstat-summary.service
 %{systemdunitdir}/sysstat-summary.timer
 %{systemdunitdir}-sleep/sysstat.sleep
