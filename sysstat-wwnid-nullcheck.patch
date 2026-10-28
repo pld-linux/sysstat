@@ -1,0 +1,21 @@
+Upstream dbfbe021ec: extract_wwnid() called strlen(name) before the
+NULL check on name, making the guard useless. Move the strlen() after it.
+https://github.com/sysstat/sysstat/commit/dbfbe021ec38b99d256805d2e4f8ecde1e72715e
+diff --git a/common.c b/common.c
+index 846268f3..6a5bfcd2 100644
+--- a/common.c
++++ b/common.c
+@@ -313,11 +313,12 @@ int extract_wwnid(char *name, unsigned long long *wwn, unsigned int *part_nr)
+ {
+ 	char id[WWN_SHORT_LEN + 1];
+ 	char *s;
+-	int wwnlen = strlen(name);
++	int wwnlen;
+ 
+ 	if ((name == NULL) || (wwn == NULL) || (part_nr == NULL))
+ 		return -1;
+ 
++	wwnlen = strlen(name);
+ 	*wwn = *(wwn + 1) = 0ULL;
+ 	*part_nr = 0;
+ 

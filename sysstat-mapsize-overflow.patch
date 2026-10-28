@@ -1,0 +1,60 @@
+Upstream 73cfff6daf: crafted sa datafile causes OOB read/write past a
+16-byte heap allocation. MAP_SIZE() multiplied in 32-bit so a types_nr[]
+value like 0x20000001 wrapped to 16 and bypassed the "MAP_SIZE > size"
+checks. Evaluate in 64-bit so such files are rejected.
+https://github.com/sysstat/sysstat/commit/73cfff6daf45e560713f725e0e3ac8eacdb75456
+diff --git a/rd_stats.h b/rd_stats.h
+index 71cbd9f2..89c3f310 100644
+--- a/rd_stats.h
++++ b/rd_stats.h
+@@ -120,9 +120,16 @@
+ #define UL_ALIGNMENT_WIDTH	SIZEOF_LONG_64BIT
+ #define U_ALIGNMENT_WIDTH	4
+ 
+-#define MAP_SIZE(m)	((m[0] * ULL_ALIGNMENT_WIDTH) + \
+-			 (m[1] * UL_ALIGNMENT_WIDTH) +  \
+-			 (m[2] * U_ALIGNMENT_WIDTH))
++/*
++ * NB: the multiplications below are done in 64-bit arithmetic on purpose.
++ * types_nr[] is read straight from the datafile and is fully attacker
++ * controlled; computing this in 32-bit "unsigned int" lets a crafted value
++ * such as 0x20000001 wrap to a small result and sail through the callers'
++ * "MAP_SIZE(...) > size" sanity checks.
++ */
++#define MAP_SIZE(m)	(((unsigned long long) (m)[0] * ULL_ALIGNMENT_WIDTH) + \
++			 ((unsigned long long) (m)[1] * UL_ALIGNMENT_WIDTH) +  \
++			 ((unsigned long long) (m)[2] * U_ALIGNMENT_WIDTH))
+ 
+ /*
+  * Structure for CPU statistics.
+diff --git a/sa_common.c b/sa_common.c
+index 4c121615..4c0c7252 100644
+--- a/sa_common.c
++++ b/sa_common.c
+@@ -2065,7 +2065,7 @@ int sa_open_read_magic(int *fd, char *dfile, struct file_magic *file_magic,
+ 		/* hdr_types_nr field exists only for sysstat versions 11.7.1 and later */
+ 		if (MAP_SIZE(file_magic->hdr_types_nr) > file_magic->header_size) {
+ #ifdef DEBUG
+-			fprintf(stderr, "%s: map_size=%u header_size=%u\n",
++			fprintf(stderr, "%s: map_size=%llu header_size=%u\n",
+ 				__FUNCTION__, MAP_SIZE(file_magic->hdr_types_nr), file_magic->header_size);
+ #endif
+ 			handle_invalid_sa_file(*fd, file_magic, dfile, n);
+@@ -2184,7 +2184,7 @@ void check_file_actlst(int *ifd, char *dfile, struct activity *act[], uint64_t f
+ 	    (MAP_SIZE(file_hdr->act_types_nr) > file_hdr->act_size) ||
+ 	    (MAP_SIZE(file_hdr->rec_types_nr) > file_hdr->rec_size)) {
+ #ifdef DEBUG
+-		fprintf(stderr, "%s: sa_act_nr=%u act_size=%u rec_size=%u map_size(act)=%u map_size(rec)=%u\n",
++		fprintf(stderr, "%s: sa_act_nr=%u act_size=%u rec_size=%u map_size(act)=%llu map_size(rec)=%llu\n",
+ 			__FUNCTION__, file_hdr->sa_act_nr, file_hdr->act_size, file_hdr->rec_size,
+ 			MAP_SIZE(file_hdr->act_types_nr), MAP_SIZE(file_hdr->rec_types_nr));
+ #endif
+@@ -2290,7 +2290,7 @@ void check_file_actlst(int *ifd, char *dfile, struct activity *act[], uint64_t f
+ 
+ 		if (MAP_SIZE(fal->types_nr) > fal->size) {
+ #ifdef DEBUG
+-		fprintf(stderr, "%s: id=%u size=%d map_size=%u\n",
++		fprintf(stderr, "%s: id=%u size=%d map_size=%llu\n",
+ 			__FUNCTION__, fal->id, fal->size, MAP_SIZE(fal->types_nr));
+ #endif
+ 			goto format_error;

@@ -1,0 +1,29 @@
+Upstream c27b1cf1af: ioc_init() parses sysstat.ioconf with unbounded
+"%[^:]" sscanf conversions; an over-long field overflows blkp->name /
+cfmt / dfmt / pfmt. A '%'-prefixed disk format also wrote two bytes past
+blkp->dfmt via strcat. Add sscanf field widths and keep room for "%s".
+https://github.com/sysstat/sysstat/commit/c27b1cf1affcb67396b82958bda633acac02ddea
+diff --git a/ioconf.c b/ioconf.c
+index 3e03d173..5ef7c9c7 100644
+--- a/ioconf.c
++++ b/ioconf.c
+@@ -234,7 +234,8 @@ int ioc_init(void)
+ 
+ 		/* maybe it's a full record? */
+ 
+-		i = sscanf(buf, "%u:%[^:]:%[^:]:%u:%[^:]:%u:%[^:]:%u:%63s",
++		/* Field widths must match IOC_NAMELEN, IOC_FMTLEN and IOC_DESCLEN */
++		i = sscanf(buf, "%u:%31[^:]:%15[^:]:%u:%15[^:]:%u:%15[^:]:%u:%63s",
+ 			   &major, blkp->name,
+ 			   cfmt, &iocp->ctrlno,
+ 			   dfmt, &blkp->dcount,
+@@ -316,7 +317,8 @@ int ioc_init(void)
+ 			break;
+ 
+ 		case '%':
+-			strncpy(blkp->dfmt, dfmt + 1, sizeof(blkp->dfmt) - 1);
++			/* Keep room for the "%s" string appended below */
++			strncpy(blkp->dfmt, dfmt + 1, sizeof(blkp->dfmt) - 3);
+ 			/* fallthrough to next case */
+ 		case 'd':
+ 			blkp->cconv = ioc_ito10;

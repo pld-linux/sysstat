@@ -9,13 +9,16 @@ Summary(zh_CN.UTF-8):	sar, iostat 等系统监视工具
 # an odd one (12.7.x) is the development series
 Name:		sysstat
 Version:	12.8.0
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://github.com/sysstat/sysstat/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	653ce9e613a0a60c8bb1e0d739dc58ca
 Source2:	%{name}.init
 Source3:	crontab
+Patch0:		%{name}-mapsize-overflow.patch
+Patch1:		%{name}-ioconf-overflow.patch
+Patch2:		%{name}-wwnid-nullcheck.patch
 URL:		https://sysstat.github.io/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
@@ -61,6 +64,9 @@ sieciowych i innych operacji wejścia/wyjścia.
 
 %prep
 %setup -q
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 %build
 %{__aclocal}
